@@ -1,0 +1,59 @@
+<main>
+  <% if (errorMessage) { %>
+    <div class="user-message user-message--error">
+      <%= errorMessage %>
+    </div>
+    <% } %>
+      <form action="/articles/<% if (editing) { %>edit<% } else { %>new<% } %>" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input 
+              class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %>"
+              type="text" 
+              name="title" 
+              id="title" 
+              value="<% if (editing || hasError) { %><%= article.title %><% } %>">
+        </div>
+        <!-- //ogarnąć jak to działa,żeby było domyślne -->
+        <div class="form-group">
+          <label for="category"> Category</label>
+          <select class="form-select" aria-label="Default select example" name="category">
+            <option selected>Categories</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+
+
+        <div class="form-control">
+          <label for="image">Image</label>
+          <input 
+              type="file" 
+              name="image" 
+              id="image" >
+      </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+                <textarea 
+                    class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    name="description" 
+                    id="description" 
+                    rows="5"><% if (editing || hasError) { %><%= article.description %><% } %></textarea>
+        </div>
+
+
+        <% if (editing) { %>
+          <input type="hidden" value="<%= article._id %>" name="articleId">
+          <% } %>
+
+            <a href="/articles" class="btn btn-secondary">Cancel</a>
+            <button class="btn btn-primary" type="submit">
+              <% if (editing) { %>Update Article<% } else { %>Add Article<% } %>
+            </button>
+
+      </form>
+
+</main>

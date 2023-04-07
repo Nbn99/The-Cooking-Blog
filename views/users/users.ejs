@@ -1,0 +1,15 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <div class="container">
+    <% users.forEach(user => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= user.email %></h4>
+        </div>
+      </div>
+      <a href="/articles" class="btn btn-info">Back to articles</a>
+    <% }) %>
+  </div>
+  <%- include('../includes/end.ejs') %>

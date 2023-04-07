@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+      <div class="container">
+        <h1 class="mb-4">
+          <%= article.title %>
+        </h1>
+
+        <div class="image">
+          <img src="/<%= article.img %>" alt="<%= article.title %>">
+        </div>
+
+        <div class="text-muted mb-2 ">
+          <%= article.createdAt.toLocaleDateString() %>
+        </div> 
+        <div class="text-muted mb-2 ">
+         Created by: <%= article.userId%>
+        </div>
+        <div>
+          <%= article.description %>
+        </div>
+
+        <a href="/articles" class="btn btn-secondary"> All articles</a>
+        <% if (isAuthenticated) { %>
+        <a href="/articles/edit/<%= article._id %>" class="btn btn-info"> Edit</a>
+        <form action="/articles/<%= article._id %>?_method=DELETE" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <% } %>
+       
+
+
+        <%- include('../includes/end.ejs') %>
