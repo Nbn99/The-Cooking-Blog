@@ -19,7 +19,13 @@ const articleSchema = new Schema({
     },
     category: {
         type: String,
-        require: true
+        require: true,
+        enum: ['Breakfast', 'Lunch', 'Dinner', 'Appetizers', 'Desserts']
+    },
+    subcategory: {
+        type: String,
+        require: true,
+        enum: ['None','Vegetarian', 'Vegan', 'Gluten Free']
     },
     createdAt: {
         type: Date,

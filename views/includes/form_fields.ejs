@@ -9,7 +9,7 @@
         <div class="form-group">
           <label for="title">Title</label>
           <input 
-              class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %>"
+              class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %> form-control" 
               type="text" 
               name="title" 
               id="title" 
@@ -18,27 +18,40 @@
         <!-- //ogarnąć jak to działa,żeby było domyślne -->
         <div class="form-group">
           <label for="category"> Category</label>
-          <select class="form-select" aria-label="Default select example" name="category">
+          <select class="form-select form-control" aria-label="Default select example" name="category">
             <option selected>Categories</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Diner</option>
+            <option value="Appetizers">Appetizers</option>
+            <option value="Desserts">Desserts</option>
           </select>
+        </div>
+        <div class="form-group mb-2" >
+          <label for="subcategory"> Subategory</label>
+          <select class="form-select form-control" aria-label="Default select example" name="subcategory">
+            <option selected>Subcategories</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Gluten Free">Gluten Free</option>
+            <option value="None">None</option>
+            </select>
         </div>
 
 
         <div class="form-control">
           <label for="image">Image</label>
           <input 
+              class="form-control"
               type="file" 
               name="image" 
               id="image" >
       </div>
 
-        <div class="form-group">
+        <div class="form-group mb-2">
           <label for="description">Description</label>
                 <textarea 
-                    class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %> form-control"
                     name="description" 
                     id="description" 
                     rows="5"><% if (editing || hasError) { %><%= article.description %><% } %></textarea>

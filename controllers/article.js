@@ -21,24 +21,27 @@ exports.postNewArticle = (req, res, next) => {
     const title = req.body.title;
     const createdAt = req.body.createdAt;
     const category = req.body.category;
+    const subcategory = req.body.subcategory;
     const image = req.file
     const description = req.body.description;
-  console.log(image)
+    console.log(image)
 
 
     if (!image) {
         return res.status(422).render('articles/new', {
-          path: '/articles/new',
-          editing: false,
-          hasError: true,
-          article: {
-            title: title,
-            description: description
-          },
-          errorMessage: 'Attached file is not an image.',
-          validationErrors: []
+            path: '/articles/new',
+            editing: false,
+            hasError: true,
+            article: {
+                title: title,
+                description: description,
+                category: category,
+                subcategory: subcategory
+            },
+            errorMessage: 'Attached file is not an image.',
+            validationErrors: []
         });
-      }
+    }
 
     const errors = validationResult(req);
 
@@ -50,7 +53,9 @@ exports.postNewArticle = (req, res, next) => {
             hasError: true,
             article: {
                 title: title,
-                description: description
+                description: description,
+                category: category,
+                subcategory: subcategory
             },
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array()
@@ -58,10 +63,11 @@ exports.postNewArticle = (req, res, next) => {
     }
     const img = image.path;
     const article = new Article({
-        
+
         title: title,
         createdAt: createdAt,
         category: category,
+        subcategory: subcategory,
         img: img,
         description: description,
         userId: req.user._id
@@ -115,6 +121,7 @@ exports.postEditArticle = (req, res, next) => {
     const updatedTitle = req.body.title;
     const createdAt = req.body.createdAt;
     const updatedCategory = req.body.category;
+    const updatedSubcategory = req.body.subcategory;
     const image = req.file
     const updatedDescription = req.body.description;
     console.log(artId)
@@ -131,6 +138,8 @@ exports.postEditArticle = (req, res, next) => {
                 title: updatedTitle,
                 img: updatedImg,
                 description: updatedDescription,
+                category: updatedCategory,
+                subcategory: updatedSubcategory,
                 _id: artId
             },
             errorMessage: errors.array()[0].msg,
@@ -146,11 +155,12 @@ exports.postEditArticle = (req, res, next) => {
             article.title = updatedTitle;
             article.createdAt = createdAt;
             article.category = updatedCategory;
+            article.subcategory = updatedSubcategory;
             article.description = updatedDescription;
             if (image) {
                 fileHelper.deleteFile(article.img);
                 article.img = image.path;
-              }
+            }
 
             return article.save().then(result => {
                 console.log('UPDATED PRODUCT!');
@@ -169,32 +179,32 @@ exports.postEditArticle = (req, res, next) => {
 exports.getAllArticles = (req, res, next) => {
     const page = +req.query.page || 1;
     let totalArticles;
-  
+
     Article.find()
-      .countDocuments()
-      .then(numArticles => {
-        totalArticles = numArticles;
-        return Article.find()
-          .skip((page - 1) * ITEMS_PER_PAGE)
-          .limit(ITEMS_PER_PAGE);
-      })
-      .then(articles => {
-        res.render('articles/index', {
-          articles: articles,
-          path: '/articles',
-          currentPage: page,
-          hasNextPage: ITEMS_PER_PAGE * page < totalArticles,
-          hasPreviousPage: page > 1,
-          nextPage: page + 1,
-          previousPage: page - 1,
-          lastPage: Math.ceil(totalArticles / ITEMS_PER_PAGE)
+        .countDocuments()
+        .then(numArticles => {
+            totalArticles = numArticles;
+            return Article.find()
+                .skip((page - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE);
+        })
+        .then(articles => {
+            res.render('articles/index', {
+                articles: articles,
+                path: '/articles',
+                currentPage: page,
+                hasNextPage: ITEMS_PER_PAGE * page < totalArticles,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalArticles / ITEMS_PER_PAGE)
+            });
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
-      })
-      .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-      });
 
     // Article.find().sort({ createdAt: 'desc' })
     //     .then(articles => {
@@ -247,20 +257,20 @@ exports.getArticle = async (req, res, next) => {
 exports.deleteArticle = (req, res, next) => {
     const artId = req.body.articleId;
     Article.findById(artId)
-    .then(article => {
-      if (!article) {
-        return next(new Error('Product not found.'));
-      }
-      fileHelper.deleteFile(article.img);
-      return Product.deleteOne({ _id: artId, userId: req.user._id });
-    })
-    .then(() => {
-      console.log('DESTROYED article');
-      res.redirect('/articles');
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
-    });
+        .then(article => {
+            if (!article) {
+                return next(new Error('Product not found.'));
+            }
+            fileHelper.deleteFile(article.img);
+            return Product.deleteOne({ _id: artId, userId: req.user._id });
+        })
+        .then(() => {
+            console.log('DESTROYED article');
+            res.redirect('/articles');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
