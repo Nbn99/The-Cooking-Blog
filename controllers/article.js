@@ -1,5 +1,5 @@
 // const fs = require('fs');  <- dodać gdy będę chciała dodać download ingrediens
-// const path = require('path');
+const path = require('path');
 
 const { validationResult } = require('express-validator');
 const Article = require('../models/article');
@@ -220,27 +220,48 @@ exports.getAllArticles = (req, res, next) => {
     //     });
 };
 
-exports.getArticle = async (req, res, next) => {
-    const articleId = req.params.id;
+// exports.getArticle = async (req, res, next) => {
+//     const articleId = req.params.id;
+//     console.log(req.params)
+//     try {
+//         const article = await Article.findById(articleId);
+//         if (article == null) {
+//             res.redirect('/articles')
+//         } else {
+//             res.render('articles/show', {
+//                 article: article,
+//                 // isAuthenticated: req.isLoggedIn
+//             });
+//         };
+
+//     } catch (err) {
+//         error = new Error(err);
+//         error.httpStatusCode = 500;
+//         return next(error);
+//     }
+// };
+
+exports.getArticle = (req, res, next) => {
+    const artId = req.params.id;
     console.log(req.params)
-    try {
-        const article = await Article.findById(articleId);
-        if (article == null) {
-            res.redirect('/articles')
-        } else {
-            res.render('articles/show', {
-                article: article,
-                // isAuthenticated: req.isLoggedIn
-            });
-        };
-
-    } catch (error) {
-        error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    }
+    Article.findById(artId)
+        .then(article => {
+            if (article == null) {
+                res.redirect('/articles')
+            } else {
+                res.render('articles/show', {
+                    article: article,
+                    pageTitle: article.title,
+                    path: '/articles'
+                });
+            };
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
-
 
 // exports.postDeleteArticle = (req, res, next) => {
 //     const { id } = req.params
@@ -262,7 +283,7 @@ exports.deleteArticle = (req, res, next) => {
                 return next(new Error('Product not found.'));
             }
             fileHelper.deleteFile(article.img);
-            return Product.deleteOne({ _id: artId, userId: req.user._id });
+            return Article.deleteOne({ _id: artId, userId: req.user._id });
         })
         .then(() => {
             console.log('DESTROYED article');
@@ -287,15 +308,54 @@ exports.deleteArticle = (req, res, next) => {
 
 //   }
 
-exports.searchArticle = async (req, res, next) => {
+exports.searchArticle = (req, res, next) => {
     let searchTerm = req.body.searchTerm;
     Article.find({ $text: { $search: searchTerm, $diacriticSensitive: true } })
         .then(article => {
-            res.render('articles/search', { article: 'Cooking Blog - Search', article })
+            res.render('articles/search', { 
+                title: 'Cooking Blog - Search', 
+                article 
+            })
         })
         .catch(err => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
         });
+};
+
+exports.searchRandom = async (req, res, next) => {
+    try {
+        let count = await Article.find().countDocuments();
+        
+        let random = Math.floor(Math.random() * count);
+        let article = await Article.findOne().skip(random).exec();
+        res.render('articles/show', { 
+            title: 'Cooking Blog - Explore Random',
+            path: '/articles', 
+            article 
+            
+        });
+    } catch (error) {
+        res.satus(500).send({ message: error.message || "Error Occured" });
+    }
 }
+
+
+//   exports.searchRandom = (req, res, next) => {
+//     Article.find().countDocuments()
+//     .then(count => {
+//         random = Math.floor(Math.random() * count);
+//     })
+//     .then(random => {
+//         Article.findOne().skip(random).exec();
+//     })
+//     .then(article => {
+//         res.render('search-random', { title: 'Cooking Blog - Explore Latest', article } )
+//     })
+//     .catch(err => {
+//         const error = new Error(err);
+//         error.httpStatusCode = 500;
+//         return next(error);
+//     });
+//    } 

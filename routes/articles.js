@@ -10,9 +10,13 @@ router.get('/', articleController.getAllArticles);
 
 router.get('/new', isLoggedIn, articleController.getNewArticle);
 
+router.get('/random', articleController.searchRandom)
+
 router.get('/edit/:id', isLoggedIn, articleController.getEditArticle);
 
 router.get('/:id', articleController.getArticle);
+
+
 
 router.post(
     '/new',

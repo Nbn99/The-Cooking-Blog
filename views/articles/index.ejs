@@ -11,6 +11,7 @@
             <% if (isAuthenticated) { %>
               <a href="/articles/new" class="btn btn-success">New Article</a>
               <% } %>
+              <a href="/articles/random" class="btn btn-success">Show random</a>
               <% if (articles.length > 0) { %>
                 <% for (let article of articles) { %>
                   <div class="card mt-4">

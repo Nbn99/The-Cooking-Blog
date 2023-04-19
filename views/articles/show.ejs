@@ -19,15 +19,16 @@
          Created by: <%= article.userId%>
         </div>
         <div>
-          <%= article.description %>
-        </div>
-        <div>
           <%= article.category %>
         </div>
         <div>
           <%= article.subcategory %>
         </div>
 
+        <div>
+          <%= article.description %>
+        </div>
+        
         <a href="/articles" class="btn btn-secondary"> All articles</a>
         <% if (isAuthenticated) { %>
         <a href="/articles/edit/<%= article._id %>" class="btn btn-info"> Edit</a>
