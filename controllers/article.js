@@ -274,3 +274,28 @@ exports.deleteArticle = (req, res, next) => {
             return next(error);
         });
 };
+
+
+// exports.searchArticle = async(req, res, next) => {
+//     try {
+//       let searchTerm = req.body.searchTerm;
+//       let article = await Article.find( { $text: { $search: searchTerm, $diacriticSensitive: true } });
+//       res.render('search', { article: 'Cooking Blog - Search', article } );
+//     } catch (error) {
+//       res.satus(500).send({message: error.message || "Error Occured" });
+//     }
+
+//   }
+
+exports.searchArticle = async (req, res, next) => {
+    let searchTerm = req.body.searchTerm;
+    Article.find({ $text: { $search: searchTerm, $diacriticSensitive: true } })
+        .then(article => {
+            res.render('articles/search', { article: 'Cooking Blog - Search', article })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+}

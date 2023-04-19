@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <h1 class="pb-4">Search Results</h1>
+
+            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <% if(article !='' ) { %>
+                    <% article.forEach(function(article, index){ %>
+                        <a href="/articles/<%= article._id %>" class="col text-center category__link">
+                            <div class="image">
+                                <img src="/<%= article.img %>" alt="<%= article.title %>">
+                              </div>
+                            <div class="pt-1">
+                                <%= article.title %>
+                            </div>
+                        </a>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No Article found.</p>
+                                <% } %>
+            </div>
+
+            <%- include('../includes/end.ejs') %>

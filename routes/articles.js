@@ -43,6 +43,7 @@ router.post(
     isLoggedIn,
     articleController.postEditArticle
 );
+router.post('/search', articleController.searchArticle);
 
 router.delete('/:id', isLoggedIn, articleController.deleteArticle);
 

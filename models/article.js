@@ -51,4 +51,6 @@ articleSchema.pre('validate', function (next) {
 
 })
 
+articleSchema.index({ name: 'text', description: 'text' });
+
 module.exports = mongoose.model('Article', articleSchema)
