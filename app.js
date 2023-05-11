@@ -10,6 +10,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 
 
+
 const errorController = require('./controllers/error');
 const User = require('./models/users');
 
@@ -48,6 +49,7 @@ app.set('views', 'views');
 
 const articleRouter = require('./routes/articles');
 const usersRouter = require('./routes/users')
+const categoriesRouter = require('./routes/categories')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
@@ -89,6 +91,7 @@ app.use((req, res, next) => {
 
 app.use('/articles', articleRouter);
 app.use('/users', usersRouter);
+app.use('/categories', categoriesRouter)
 
 app.use(errorController.get404);
 

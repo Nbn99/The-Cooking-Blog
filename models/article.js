@@ -20,12 +20,12 @@ const articleSchema = new Schema({
     category: {
         type: String,
         require: true,
-        enum: ['Breakfast', 'Lunch', 'Dinner', 'Appetizers', 'Desserts']
+        
     },
     subcategory: {
         type: String,
         require: true,
-        enum: ['None','Vegetarian', 'Vegan', 'Gluten Free']
+    
     },
     createdAt: {
         type: Date,
@@ -51,6 +51,6 @@ articleSchema.pre('validate', function (next) {
 
 })
 
-articleSchema.index({ name: 'text', description: 'text' });
+articleSchema.index({ title: 'text', description: 'text' });
 
 module.exports = mongoose.model('Article', articleSchema)

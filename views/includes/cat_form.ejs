@@ -1,0 +1,34 @@
+<main>
+    <% if (errorMessage) { %>
+        <div class="user-message user-message--error">
+            <%= errorMessage %>
+        </div>
+        <% } %>
+            <form action="/categories/<% if (editing) { %>edit<% } else { %>new<% } %>" method="POST"
+                enctype="multipart/form-data">
+                <div class="form-group mb-2">
+                    <label for="name">Name</label>
+                    <input
+                        class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %> form-control"
+                        type="text" name="name" id="name"
+                        value="<% if (editing || hasError) { %><%= category.name %><% } %>">
+                </div>
+                <div class="form-control mb-2">
+                    <label for="image">Image</label>
+                    <input class="form-control" type="file" name="image" id="image">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="description">Description</label>
+                    <textarea
+                        class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %> form-control"
+                        name="description" id="description"
+                        rows="5"><% if (editing || hasError) { %><%= category.description %><% } %></textarea>
+                </div>
+                <a href="/categories" class="btn btn-secondary">Cancel</a>
+                <button class="btn btn-primary" type="submit">
+                    Add Category
+                </button>
+
+            </form>
+
+</main>
