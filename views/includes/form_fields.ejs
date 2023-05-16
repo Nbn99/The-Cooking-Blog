@@ -64,6 +64,24 @@
         <input class="form-control" type="file" name="image" id="image" />
       </div>
 
+      <div class="col-12">
+        <label for="name" class="form-label">Ingredients</label><br/>
+        <div class="ingredientList" id="ingredientList">
+          
+        </div>
+
+      </div>
+
+      <div class="col-12">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          id="addIngredientsBtn"
+        >
+          + Ingredient
+        </button>
+      </div>
+
       <div class="form-group mb-2">
         <label for="description">Description</label>
         <textarea
@@ -73,7 +91,8 @@
           rows="5"
         >
       <% if (editing || hasError) { %><%= article.description %><% } %>
-      </textarea>
+      </textarea
+        >
       </div>
 
       <% if (editing) { %>

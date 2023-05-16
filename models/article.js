@@ -27,6 +27,10 @@ const articleSchema = new Schema({
         require: true,
     
     },
+    ingredients: {
+        type: String,
+        require: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now
