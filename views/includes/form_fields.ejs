@@ -27,12 +27,13 @@
         </label>
 
         <div class="select">
-          <% if(categories != '') { %> <% categories.forEach(function (category,
+          <% if(categories != '') { %>
+           <% categories.forEach(function (category,
           index) { %>
 
           <div class="option">
-            <input type="checkbox" class="item" id="category" name="category" />
-            <label for="category"><%= category.name %></label>
+            <input type="checkbox" class="item"  name="category"/>
+            <label for="item"><%= category.name %></label>
           </div>
           <% }) %> <% } else { %>
           <input type="checkbox" class="toggle" id="toggle" checked />
@@ -62,6 +63,25 @@
       <div class="form-control mb-2">
         <label for="image">Image</label>
         <input class="form-control" type="file" name="image" id="image" />
+      </div>
+
+      <div class="form-control col-12">
+        <label for="name" class="form-label">Ingredients</label><br />
+        <div class="ingredientList" id="ingredientList">
+
+         
+
+        </div>
+      </div>
+
+      <div class="col-12 mb-2">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          id="addIngredientsBtn"
+        >
+          + Ingredient
+        </button>
       </div>
 
       <div class="form-group mb-2">
