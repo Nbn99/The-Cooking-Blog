@@ -21,7 +21,7 @@ router.post(
   [
     body("title").isString().isLength({ min: 3 }).trim(),
     body("description").isLength({ min: 5, max: 400 }).trim(),
-    body("ingredients").isString().isLength({ min: 3 }).trim(),
+    
   ],
   isLoggedIn,
   articleController.postNewArticle

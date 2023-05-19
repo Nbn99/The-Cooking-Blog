@@ -4,13 +4,13 @@ const path = require("path");
 const { validationResult } = require("express-validator");
 const Article = require("../models/article");
 const Category = require("../models/category");
+const User = require("../models/users");
+const { Console } = require("console");
 
 const ITEMS_PER_PAGE = 2;
 
 exports.getNewArticle = (req, res, next) => {
-  const limitNumber = 20;
   Category.find({})
-    .limit(limitNumber)
     .then((categories) => {
       res.render("articles/new", {
         article: new Article(),
@@ -21,17 +21,25 @@ exports.getNewArticle = (req, res, next) => {
         validationErrors: [],
         categories,
       });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
-exports.postNewArticle = (req, res, next) => {
+exports.postNewArticle = async (req, res, next) => {
+  const categories = await Category.find({});
+  console.log(categories);
+
   const title = req.body.title;
   const createdAt = req.body.createdAt;
   const category = req.body.category;
   const subcategory = req.body.subcategory;
   const image = req.file;
+  const ingredients = req.body.ingredients;
   const description = req.body.description;
-  console.log(image);
 
   if (!image) {
     return res.status(422).render("articles/new", {
@@ -43,9 +51,11 @@ exports.postNewArticle = (req, res, next) => {
         description: description,
         category: category,
         subcategory: subcategory,
+        ingredients: ingredients,
       },
       errorMessage: "Attached file is not an image.",
       validationErrors: [],
+      categories,
     });
   }
 
@@ -62,30 +72,35 @@ exports.postNewArticle = (req, res, next) => {
         description: description,
         category: category,
         subcategory: subcategory,
+        ingredients: ingredients,
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
+      categories,
     });
   }
   const img = image.path;
+
   const article = new Article({
     title: title,
     createdAt: createdAt,
     category: category,
     subcategory: subcategory,
     img: img,
+    ingredients: ingredients,
     description: description,
     userId: req.user._id,
-  });
-
-  article
+  }) 
+  
+  article   
     .save()
     .then((result) => {
+      categories;
       req.flash("success", "Successfully made a new article");
       res.redirect("/articles");
       console.log("added new article");
-      console.log(img);
     })
+
     .catch((err) => {
       const error = new Error(err);
       error.httpStatusCode = 500;
@@ -94,8 +109,10 @@ exports.postNewArticle = (req, res, next) => {
 };
 
 exports.getEditArticle = async (req, res, next) => {
+  const categories = await Category.find({});
   const articleId = req.params.id;
   Article.findById(articleId)
+    
     .then((article) => {
       if (article.userId.toString() !== req.user._id.toString()) {
         return res.redirect("/articles");
@@ -110,6 +127,7 @@ exports.getEditArticle = async (req, res, next) => {
         hasError: false,
         errorMessage: null,
         validationErrors: [],
+        categories,
       });
     })
     .catch((err) => {
@@ -119,13 +137,16 @@ exports.getEditArticle = async (req, res, next) => {
     });
 };
 
-exports.postEditArticle = (req, res, next) => {
+exports.postEditArticle = async (req, res, next) => {
+  const categories = await Category.find({});
+  console.log(categories);
   const artId = req.body.articleId;
   const updatedTitle = req.body.title;
   const createdAt = req.body.createdAt;
   const updatedCategory = req.body.category;
   const updatedSubcategory = req.body.subcategory;
   const image = req.file;
+  const updatedIngredients = req.body.ingredients;
   const updatedDescription = req.body.description;
   console.log(artId);
 
@@ -139,11 +160,12 @@ exports.postEditArticle = (req, res, next) => {
       hasError: true,
       article: {
         title: updatedTitle,
-        img: updatedImg,
+        ingredients: updatedIngredients,
         description: updatedDescription,
         category: updatedCategory,
         subcategory: updatedSubcategory,
         _id: artId,
+        categories,
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
@@ -158,8 +180,10 @@ exports.postEditArticle = (req, res, next) => {
       article.title = updatedTitle;
       article.createdAt = createdAt;
       article.category = updatedCategory;
+      article.ingredients = updatedIngredients;
       article.subcategory = updatedSubcategory;
       article.description = updatedDescription;
+      categories;
       if (image) {
         fileHelper.deleteFile(article.img);
         article.img = image.path;
@@ -248,6 +272,14 @@ exports.getArticle = (req, res, next) => {
   const artId = req.params.id;
   console.log(req.params);
   Article.findById(artId)
+    .populate({
+      path: "userId",
+      select: "email",
+    })
+    .populate({
+      path: "category",
+      select: "name"
+    })
     .then((article) => {
       if (article == null) {
         res.redirect("/articles");

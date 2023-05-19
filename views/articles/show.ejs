@@ -16,7 +16,7 @@
           <%= article.createdAt.toLocaleDateString() %>
         </div> 
         <div class="text-muted mb-2 ">
-         Created by: <%= article.userId%>
+         Created by: <%= article.userId.email%>
         </div>
         <div>
           <%= article.category %>
@@ -24,6 +24,7 @@
         <div>
           <%= article.subcategory %>
         </div>
+        <div><%= article.ingredients %></div>
 
         <div>
           <%= article.description %>

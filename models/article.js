@@ -17,18 +17,18 @@ const articleSchema = new Schema({
         type: String,
         require: true
     },
-    category: {
-        type: String,
-        require: true,
-        
-    },
+    category: [{
+        type: Schema.Types.ObjectId,
+        require: true,  
+        ref: 'Category'      
+    }],
     subcategory: {
         type: String,
         require: true,
     
     },
     ingredients: {
-        type: String,
+        type: Array,
         require: true,
     },
     createdAt: {
