@@ -54,9 +54,9 @@ exports.getCategoriesById = async (req, res, next) => {
   const limitNumber = 20;
 
   const category = await Category.findOne({ name: categoryId })
-  console.log(category)
+ 
 
-  Article.find({ category: categoryId })
+  Article.find({ category: [categoryId] })
     .limit(limitNumber)
     .then((categoryById) => {
       res.render("categories/one", {
