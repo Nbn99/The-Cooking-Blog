@@ -32,8 +32,10 @@
           index) { %>
 
           <div class="option">
-            <input type="checkbox" class="item"  name="category"/>
-            <label for="item"><%= category.name %></label>
+            
+            <input type="checkbox" class="category" id="category"  name="category" value="<%= category.name %>"/>
+            <label for="category"><%= category.name %></label>
+            <input name="category_hidden" type="hidden" value="">
           </div>
           <% }) %> <% } else { %>
           <input type="checkbox" class="toggle" id="toggle" checked />
