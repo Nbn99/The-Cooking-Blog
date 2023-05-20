@@ -1,5 +1,6 @@
 // const fs = require('fs');  <- dodać gdy będę chciała dodać download ingrediens
 const path = require("path");
+const fileHelper = require('../util/file')
 
 const { validationResult } = require("express-validator");
 const Article = require("../models/article");
@@ -310,12 +311,14 @@ exports.getArticle = (req, res, next) => {
 //   };
 
 exports.deleteArticle = (req, res, next) => {
-  const artId = req.body.articleId;
+  const artId = req.params.id;
+  console.log(artId)
   Article.findById(artId)
     .then((article) => {
       if (!article) {
         return next(new Error("Product not found."));
       }
+
       fileHelper.deleteFile(article.img);
       return Article.deleteOne({ _id: artId, userId: req.user._id });
     })
