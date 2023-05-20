@@ -22,11 +22,6 @@ const articleSchema = new Schema({
         require: true,  
         ref: 'Category'      
     }],
-    subcategory: {
-        type: String,
-        require: true,
-    
-    },
     ingredients: {
         type: Array,
         require: true,

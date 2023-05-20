@@ -22,8 +22,8 @@
       <div class="multiple_select">
         <input type="checkbox" class="toggle" id="toggle" checked />
         <label for="toggle" class="toggle_label">
-          ><% if (editing || hasError) { %><%= article.category %><% } else { %>
-          Category<% } %><span class="v">v</span>
+          
+          Category <span class="v">v</span>
         </label>
 
         <div class="select">
@@ -36,6 +36,7 @@
             <input type="checkbox" class="category" id="category"  name="category" value="<%= category.name %>"/>
             <label for="category"><%= category.name %></label>
             <input name="category_hidden" type="hidden" value="">
+
           </div>
           <% }) %> <% } else { %>
           <input type="checkbox" class="toggle" id="toggle" checked />
@@ -43,23 +44,6 @@
           <a href="/categories/new" class="btn btn-secondary">Add category</a>
           <% } %>
         </div>
-      </div>
-
-      <div class="form-group mb-2">
-        <label for="subcategory"
-          ><% if (editing || hasError) { %><%= article.subcategory %><% } else {
-          %> Subcategory<% } %>
-        </label>
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          name="subcategory"
-        >
-          <option selected>Subcategory</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
       </div>
 
       <div class="form-control mb-2">

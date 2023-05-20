@@ -40,8 +40,7 @@ exports.postNewArticle = async (req, res, next) => {
 
   const title = req.body.title;
   const createdAt = req.body.createdAt;
-  const subcategory = req.body.subcategory;
-  const category = req.body.category
+   const category = req.body.category
   const image = req.file;
   const ingredients = req.body.ingredients;
   const description = req.body.description;
@@ -55,7 +54,6 @@ exports.postNewArticle = async (req, res, next) => {
         title: title,
         description: description,
         category: category,
-        subcategory: subcategory,
         ingredients: ingredients,
       },
       errorMessage: "Attached file is not an image.",
@@ -77,7 +75,6 @@ exports.postNewArticle = async (req, res, next) => {
         title: title,
         description: description,
         category: category,
-        subcategory: subcategory,
         ingredients: ingredients,
       },
       errorMessage: errors.array()[0].msg,
@@ -91,7 +88,6 @@ exports.postNewArticle = async (req, res, next) => {
     title: title,
     createdAt: createdAt,
     category: category,
-    subcategory: subcategory,
     img: img,
     ingredients: ingredients,
     description: description,
@@ -151,7 +147,6 @@ exports.postEditArticle = async (req, res, next) => {
   const updatedTitle = req.body.title;
   const createdAt = req.body.createdAt;
   const updatedCategory = req.body.category;
-  const updatedSubcategory = req.body.subcategory;
   const image = req.file;
   const updatedIngredients = req.body.ingredients;
   const updatedDescription = req.body.description;
@@ -170,7 +165,6 @@ exports.postEditArticle = async (req, res, next) => {
         ingredients: updatedIngredients,
         description: updatedDescription,
         category: updatedCategory,
-        subcategory: updatedSubcategory,
         _id: artId,
         categories,
       },
@@ -188,7 +182,6 @@ exports.postEditArticle = async (req, res, next) => {
       article.createdAt = createdAt;
       article.category = updatedCategory;
       article.ingredients = updatedIngredients;
-      article.subcategory = updatedSubcategory;
       article.description = updatedDescription;
       categories;
       if (image) {
