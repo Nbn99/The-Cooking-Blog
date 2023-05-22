@@ -32,11 +32,6 @@
           <% if(isAuthenticated){ %>
           <h2>Leave a Review</h2>
           <form action="/articles/<%=article._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
-              <!-- <div class="mb-3">
-                  <label class="form-label" for="rating">Rating</label>
-                  <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
-              </div> -->
-              
              
               <fieldset class="starability-basic">
                
@@ -87,6 +82,40 @@
           <% } %>
           <% } %>
       </div>
+      
+      <div class="col-6">
+        <% if(isAuthenticated){ %>
+        <h2>Leave a Comment</h2>
+        <form action="/articles/<%=article._id%>/comments" method="POST" class="mb-3 validated-form" novalidate>
+                  
+            <div class="mb-3">
+                <label class="form-label" for="description">Comment Text</label>
+                <textarea class="form-control" name="description" id="description" cols="30" rows="3" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <button class="btn btn-success">Submit</button>
+          
+        </form>
+        <% } %>
+
+        <% if(article.comments != '') { %>
+        <% for(let comment of article.comments) { %>
+        <div class="card mb-3 ">
+            <div class="card-body">
+                <h5 class="card-title"> <%= comment.userId %></h5>
+                <p class="card-text">Comment: <%= comment.description%></p>
+            </div>
+            <%  if( isAuthenticated )  {%>
+              <form action="/articles/<%=article._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+              <% } %>
+        </div>
+        <% } %>
+        <% } %>
+    </div>
         
         <a href="/articles" class="btn btn-secondary"> All articles</a>
         <% if (isAuthenticated) { %>

@@ -1,19 +1,18 @@
+
 const Article = require("../models/article");
-const Review = require("../models/review");
+const Comment = require("../models/comment");
 
 const { validationResult } = require("express-validator");
 
-exports.postNewReview = async (req, res, next) => {
+exports.postNewComment = async (req, res, next) => {
   const articleId = req.params.id;
 
   Article.findById(articleId)
       .then((article) => {
       const description = req.body.description;
-      const rating = req.body.rating;
 
-      const review = new Review({
+      const comment = new Comment({
         description: description,
-        rating: rating,
         userId: req.user._id,
       })
 
@@ -25,22 +24,21 @@ exports.postNewReview = async (req, res, next) => {
           path: "/articles/show",
           editing: false,
           hasError: true,
-          review: {
+          comment: {
             description: description,
-            rating: rating,
           },
           errorMessage: errors.array()[0].msg,
           validationErrors: errors.array(),
         });
       }
       
-      return review
+      return comment
         .save()
         .then((result) => {
-          article.reviews.push(review);
+          article.comments.push(comment);
           article.save();
-          console.log(article.reviews);
-          req.flash("success", "Successfully made a new review");
+          console.log(article.comment);
+          req.flash("success", "Successfully made a new comment");
           res.redirect(`/articles/${articleId}`);
           console.log("added new review");
         })
@@ -56,38 +54,38 @@ exports.postNewReview = async (req, res, next) => {
       return next(error);
     });
   // const article = await Article.findById(req.params.id);
-  // const review = new Review(req.body.review);
-  // review.author = req.user._id;
-  // article.reviews.push(review);
-  // await review.save();
+  // const comment = new Comments(req.body.comment);
+  // comment.userId = req.user._id;
+  // article.comments.push(comment);
+  // await comment.save();
   // await article.save();
-  // req.flash('success', 'Created new review!');
+  // req.flash('success', 'Created new comment!');
   // res.redirect(`/articles/${article._id}`);
 };
 
-exports.deleteReview = (req, res, next) => {
-  const { id, reviewId } = req.params;
-  // await Article.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-  // await Review.findByIdAndDelete(reviewId);
-  // req.flash('success', 'Successfully deleted review')
+exports.deleteComment = (req, res, next) => {
+  const { id, commentId } = req.params;
+  // await Article.findByIdAndUpdate(id, { $pull: { comments: commentId } });
+  // await Comment.findByIdAndDelete(commentId);
+  // req.flash('success', 'Successfully deleted comment')
   // res.redirect(`/articles/${id}`);
 
-  Article.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
+  Article.findByIdAndUpdate(id, { $pull: { comments: commentId } })
   .then((article) => {
     if (!article) {
       return res.redirect(`/articles/${id}`);
     }
   })
   .then((result) => {
-    Review.findById(reviewId)
-    .then((review) => {
-      if (review.userId.toString() !== req.user._id.toString()) {
+    Comment.findById(reviewId)
+    .then((comment) => {
+      if (comment.userId.toString() !== req.user._id.toString()) {
         return res.redirect(`/articles/${id}`);
       } else {
-        Review.deleteOne({_id: reviewId})
-        req.flash("success", "Successfully delete review");
+        Comment.deleteOne({_id: commentId})
+        req.flash("success", "Successfully delete comment");
           res.redirect(`/articles/${id}`);
-          console.log("deleted review");
+          console.log("deleted comment");
       }
     })
   })

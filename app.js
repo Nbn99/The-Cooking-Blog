@@ -48,9 +48,10 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const articleRouter = require('./routes/articles');
-const usersRouter = require('./routes/users')
-const categoriesRouter = require('./routes/categories')
-const reviewsRouter = require('./routes/reviews')
+const usersRouter = require('./routes/users');
+const categoriesRouter = require('./routes/categories');
+const reviewsRouter = require('./routes/reviews');
+const commentsRouter = require('./routes/comments')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
@@ -92,8 +93,9 @@ app.use((req, res, next) => {
 
 app.use('/articles', articleRouter);
 app.use('/users', usersRouter);
-app.use('/categories', categoriesRouter)
-app.use('/articles/:id/reviews', reviewsRouter)
+app.use('/categories', categoriesRouter);
+app.use('/articles/:id/reviews', reviewsRouter);
+app.use('/articles/:id/comments', commentsRouter);
 
 app.use(errorController.get404);
 

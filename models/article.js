@@ -47,6 +47,12 @@ const articleSchema = new Schema({
       ref: "Review",
     },
   ],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 articleSchema.pre("validate", function (next) {

@@ -286,7 +286,12 @@ exports.getArticle = (req, res, next) => {
       path: "reviews",
       select: ["description", "userId", "rating"],
       model: "Review"
-    }).populate("userId")
+    })
+    .populate({
+      path: "comments",
+      select: ["description", "userId"],
+      model: "Comment"
+    })
     .then((article) => {
       if (article == null) {
         res.redirect("/articles");
