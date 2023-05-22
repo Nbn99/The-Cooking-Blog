@@ -6,6 +6,7 @@ const { validationResult } = require("express-validator");
 const Article = require("../models/article");
 const Category = require("../models/category");
 const User = require("../models/users");
+const Review = require("../models/review")
 const { Console } = require("console");
 
 const ITEMS_PER_PAGE = 2;
@@ -279,8 +280,13 @@ exports.getArticle = (req, res, next) => {
     })
     .populate({
       path: "category",
-      select: "name"
+      select: "name",
     })
+    .populate({
+      path: "reviews",
+      select: ["description", "userId", "rating"],
+      model: "Review"
+    }).populate("userId")
     .then((article) => {
       if (article == null) {
         res.redirect("/articles");
@@ -297,6 +303,11 @@ exports.getArticle = (req, res, next) => {
       error.httpStatusCode = 500;
       return next(error);
     });
+
+    Review.find({}).populate({
+      path: "userId",
+      select: "email"
+    })
 };
 
 // exports.postDeleteArticle = (req, res, next) => {

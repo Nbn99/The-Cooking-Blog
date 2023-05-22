@@ -107,7 +107,7 @@ exports.postNewCategory = (req, res, next) => {
   if (!errors.isEmpty()) {
     console.log(errors.array());
     return res.status(422).render("categories/new", {
-      path: "/new",
+      path: "/categories/new",
       editing: false,
       hasError: true,
       category: {
