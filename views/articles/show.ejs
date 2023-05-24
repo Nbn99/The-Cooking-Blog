@@ -20,9 +20,18 @@
          Created by: <%= article.userId.email%>
         </div>
         <div>
-          <%= article.category %>
+          <ul class="categories">
+            <% article.category.forEach(function(category, index){ %>
+              <li class="list-group-item"><%= category %></li>
+            <% }) %>
         </div>
-        <div><%= article.ingredients %></div>
+        <div>
+                  <h1><a href="/articles/ingredients/<%= article._id %>">Ingredients</a></h1>
+                  <ul class="ingredients">
+                    <% article.ingredients.forEach(function(ingredients, index){ %>
+                      <li class="list-group-item"><%= ingredients %></li>
+                    <% }) %>
+      </div>
 
         <div>
           <%= article.description %>
@@ -104,7 +113,7 @@
         <% for(let comment of article.comments) { %>
         <div class="card mb-3 ">
             <div class="card-body">
-                <h5 class="card-title"> <%= comment.userId %></h5>
+                <h5 class="card-title"> <%= comment.userId.email %></h5>
                 <p class="card-text">Comment: <%= comment.description%></p>
             </div>
             <%  if( isAuthenticated )  {%>

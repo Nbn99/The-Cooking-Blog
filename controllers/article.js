@@ -1,6 +1,7 @@
-// const fs = require('fs');  <- dodać gdy będę chciała dodać download ingrediens
+const fs = require('fs'); 
 const path = require("path");
 const fileHelper = require('../util/file')
+const PDFDocument = require('pdfkit');
 
 const { validationResult } = require("express-validator");
 const Article = require("../models/article");
@@ -42,7 +43,7 @@ exports.postNewArticle = async (req, res, next) => {
 
   const title = req.body.title;
   const createdAt = req.body.createdAt;
-   const category = req.body.category
+  const category = req.body.category
   const image = req.file;
   const ingredients = req.body.ingredients;
   const description = req.body.description;
@@ -94,8 +95,8 @@ exports.postNewArticle = async (req, res, next) => {
     ingredients: ingredients,
     description: description,
     userId: req.user._id,
+        
   }) 
-  console.log(category)
   article   
     .save()       
     .then(async (result) => {
@@ -144,7 +145,6 @@ exports.getEditArticle = async (req, res, next) => {
 
 exports.postEditArticle = async (req, res, next) => {
   const categories = await Category.find({});
-  console.log(categories);
   const artId = req.body.articleId;
   const updatedTitle = req.body.title;
   const createdAt = req.body.createdAt;
@@ -152,8 +152,6 @@ exports.postEditArticle = async (req, res, next) => {
   const image = req.file;
   const updatedIngredients = req.body.ingredients;
   const updatedDescription = req.body.description;
-  console.log(artId);
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -191,11 +189,14 @@ exports.postEditArticle = async (req, res, next) => {
         article.img = image.path;
       }
 
-      return article.save().then((result) => {
+      return article
+      .save()
+      .then( async (result) => {
+        categories
+        console.log(image)
         console.log("UPDATED article!");
         req.flash("success", "Successfully updated the article");
         res.redirect("/articles");
-        console.log(req.body.articleId);
       });
     })
     .catch((err) => {
@@ -278,20 +279,20 @@ exports.getArticle = (req, res, next) => {
       path: "userId",
       select: "email",
     })
-    .populate({
-      path: "category",
-      select: "name",
-    })
-    .populate({
-      path: "reviews",
-      select: ["description", "userId", "rating"],
-      model: "Review"
-    })
-    .populate({
-      path: "comments",
-      select: ["description", "userId"],
-      model: "Comment"
-    })
+    // .populate({
+    //   path: "category",
+    //   select: "name",
+    // })
+    // .populate({
+    //   path: "reviews",
+    //   select: ["description", "userId", "rating"],
+    //   model: "Review"
+    // })
+    // .populate({
+    //   path: "comments",
+    //   select: ["description", "userId"],
+    //   model: "Comment"
+    // })
     .then((article) => {
       if (article == null) {
         res.redirect("/articles");
@@ -334,7 +335,6 @@ exports.deleteArticle = (req, res, next) => {
       if (!article) {
         return next(new Error("Product not found."));
       }
-
       fileHelper.deleteFile(article.img);
       return Article.deleteOne({ _id: artId, userId: req.user._id });
     })
@@ -409,3 +409,40 @@ exports.searchRandom = async (req, res, next) => {
 //         return next(error);
 //     });
 //    }
+
+
+exports.getIngredientsPdf = (req, res, next) => {
+  const articleId = req.params.articleId;
+  Article.findById(articleId)
+    .then(article => {
+      if (!article) {
+        return next(new Error('No order found.'));
+      }
+      const ingredientsPdfName = 'ingredient-list-' + article.title + '.pdf';
+      const ingredientsPdfPath = path.join('data', 'ingredientLists', ingredientsPdfName);
+
+      const pdfDoc = new PDFDocument();
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader(
+        'Content-Disposition',
+        'inline; filename="' + ingredientsPdfName + '"'
+      );
+      pdfDoc.pipe(fs.createWriteStream(ingredientsPdfPath));
+      pdfDoc.pipe(res);
+
+      pdfDoc.fontSize(26).text('Ingredients for ' + article.title, {
+        underline: true
+      });
+      
+      article.ingredients.forEach(ingredient => {
+        pdfDoc
+          .fontSize(14)
+          .text(
+            ingredient
+          );
+      });
+
+      pdfDoc.end();
+    })
+    .catch(err => next(err));
+};

@@ -16,6 +16,8 @@ router.get("/edit/:id", isLoggedIn, articleController.getEditArticle);
 
 router.get("/:id", articleController.getArticle);
 
+router.get("/ingredients/:articleId", articleController.getIngredientsPdf)
+
 router.post(
   "/new",
   [

@@ -37,6 +37,7 @@
     "nodemailer-mailgun-transport": "^2.1.5",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.21",
+    "pdfkit": "^0.13.0",
     "slugify": "^1.6.5"
   }
 }

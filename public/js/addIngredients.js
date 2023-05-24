@@ -9,9 +9,10 @@ addIngredientsBtn.addEventListener("click", function () {
   let newButton = document.createElement("button");
   newIngredients.className = "form-control mb-1";
   newIngredients.id = `ingredient_${index}`;
-  newIngredients.type = "text"
-  newIngredients.name = "ingredients"
+  newIngredients.type = "text";
+  newIngredients.name = "ingredients";
   newButton.className = "btn btn-outline-danger mb-2";
+  newButton.name = "ingredientsButton";
   newButton.type = "button";
   newButton.id = `remove_${index}`;
   newButton.textContent = "Remove";
@@ -19,13 +20,13 @@ addIngredientsBtn.addEventListener("click", function () {
   ingredientList.appendChild(newButton);
 });
 
-// let removeIngredientsBtn = document.querySelectorAll("#ingredientList button");
-// console.log(removeIngredientsBtn);
+const elements = document.getElementsByName("ingredients");
 
-// removeIngredientsBtn.addEventListener("click", function () {
-//   let removeElement = document.getElementsByTagName("input");
-//   if (removeElement.id == removeIngredientsBtn.id) {
-//     removeElement.remove();
-//   }
-//   console.log(removeIngredientsBtn.id);
-// });
+const buttonElements = document.getElementsByName("ingredientsButton");
+
+for (let element of elements) {
+  buttonElement.addEventListener("click", (event) => {
+  event.target.remove();
+  });
+}
+

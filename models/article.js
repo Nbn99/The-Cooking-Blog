@@ -16,17 +16,19 @@ const articleSchema = new Schema({
     type: String,
     require: true,
   },
-  category: [
+  category:
     {
       type: Array,
       require: true,
       ref: "Category",
-    },
-  ],
-  ingredients: {
-    type: Array,
-    require: true,
-  },
+    }
+    ,
+  ingredients: 
+    {
+      type: Array,
+      required: true
+    }
+  ,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -38,8 +40,8 @@ const articleSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
+    required: true,
     ref: "User",
-    require: true,
   },
   reviews: [
     {

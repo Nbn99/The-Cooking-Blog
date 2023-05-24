@@ -30,13 +30,10 @@
           <% if(categories != '') { %>
            <% categories.forEach(function (category,
           index) { %>
-
           <div class="option">
-            
-            <input type="checkbox" class="category" id="category"  name="category" value="<%= category.name %>"/>
+            <input type="checkbox" class="category" id="category"  name="category" value="<%= category.name %> "/>
             <label for="category"><%= category.name %></label>
             <input name="category_hidden" type="hidden" value="">
-
           </div>
           <% }) %> <% } else { %>
           <input type="checkbox" class="toggle" id="toggle" checked />
@@ -54,13 +51,10 @@
       <div class="form-control col-12">
         <label for="name" class="form-label">Ingredients</label><br />
         <div class="ingredientList" id="ingredientList">
-
-         
-
         </div>
       </div>
 
-      <div class="col-12 mb-2">
+      <div class="col-12 mb-2"> 
         <button
           type="button"
           class="btn btn-outline-primary"
