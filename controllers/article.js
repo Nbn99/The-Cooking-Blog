@@ -9,6 +9,7 @@ const Category = require("../models/category");
 const User = require("../models/users");
 const Review = require("../models/review")
 const { Console } = require("console");
+const article = require('../models/article');
 
 const ITEMS_PER_PAGE = 2;
 
@@ -144,7 +145,7 @@ exports.getEditArticle = async (req, res, next) => {
 };
 
 exports.postEditArticle = async (req, res, next) => {
-  const categories = await Category.find({});
+  const categories = await Category.find({})
   const artId = req.body.articleId;
   const updatedTitle = req.body.title;
   const createdAt = req.body.createdAt;
@@ -166,7 +167,6 @@ exports.postEditArticle = async (req, res, next) => {
         description: updatedDescription,
         category: updatedCategory,
         _id: artId,
-        categories,
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
@@ -183,17 +183,14 @@ exports.postEditArticle = async (req, res, next) => {
       article.category = updatedCategory;
       article.ingredients = updatedIngredients;
       article.description = updatedDescription;
-      categories;
       if (image) {
         fileHelper.deleteFile(article.img);
-        article.img = image.path;
       }
 
       return article
       .save()
-      .then( async (result) => {
-        categories
-        console.log(image)
+      .then(async (result) => {
+        await categories
         console.log("UPDATED article!");
         req.flash("success", "Successfully updated the article");
         res.redirect("/articles");
@@ -206,10 +203,11 @@ exports.postEditArticle = async (req, res, next) => {
     });
 };
 
-exports.getAllArticles = (req, res, next) => {
+exports.getAllArticles = async (req, res, next) => {
+  const categories = await Category.find({})
   const page = +req.query.page || 1;
   let totalArticles;
-
+console.log(categories)
   Article.find()
     .countDocuments()
     .then((numArticles) => {
@@ -220,6 +218,7 @@ exports.getAllArticles = (req, res, next) => {
     })
     .then((articles) => {
       res.render("articles/index", {
+        categories: categories,
         articles: articles,
         path: "/articles",
         currentPage: page,
@@ -329,7 +328,6 @@ exports.getArticle = (req, res, next) => {
 
 exports.deleteArticle = (req, res, next) => {
   const artId = req.params.id;
-  console.log(artId)
   Article.findById(artId)
     .then((article) => {
       if (!article) {
