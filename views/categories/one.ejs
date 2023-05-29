@@ -16,8 +16,8 @@
 
 
         <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-            <% if(typeof categoryById !=='undefined' && categoryById != '') { %>
-                <% categoryById.forEach(function(article, index){ %>
+            <% if(typeof articles !=='undefined' && articles != '') { %>
+                <% articles.forEach(function(article, index){ %>
                     <a href="/articles/<%= article._id %>" class="col text-center category__link">
                         <div class="category__img category__img--large shadow">
                             <img src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">

@@ -22,7 +22,7 @@ const articleSchema = new Schema({
       require: true,
       ref: "Category",
     }
-    ,
+  ,
   ingredients: 
     {
       type: Array,
@@ -64,6 +64,6 @@ articleSchema.pre("validate", function (next) {
   next();
 });
 
-articleSchema.index({ title: "text", description: "text" });
+articleSchema.index({'$**': 'text'});
 
 module.exports = mongoose.model("Article", articleSchema);
