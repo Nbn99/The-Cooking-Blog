@@ -2,6 +2,7 @@ const Category = require("../models/category");
 const Article = require("../models/article");
 const path = require("path");
 const { validationResult } = require("express-validator");
+const fileHelper = require("../util/file");
 
 exports.getCategories = async (req, res, next) => {
   try {
@@ -179,10 +180,10 @@ exports.postEditCategory =async (req, res, next) => {
 
 exports.deleteCategory = async (req, res, next) => {
   try {
-    const catId = req.body.categoryId;
+    const catId = req.params.id;
     const category = await Category.findById(catId)
     if (!category) {
-      return next(new Error("Product not found."));
+      return next(new Error("Category not found."));
     }
     fileHelper.deleteFile(category.img);
     await Category.deleteOne({ _id: catId, userId: req.user._id });

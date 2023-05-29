@@ -12,6 +12,12 @@
                         <div class="pt-1"><%= category.name %></div>
                         <div class="pt-1"><%= category.description %></div>
                         <% } %>
+                        <% if (isAuthenticated) { %>
+                            <a href="/categories/edit/<%= category._id %>" class="btn btn-info"> Edit</a>
+                            <form action="/categories/<%= category._id %>?_method=DELETE" method="POST" class="d-inline">
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            <% } %>
         </div>
 
 
