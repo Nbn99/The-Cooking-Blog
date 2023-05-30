@@ -273,9 +273,9 @@ exports.searchArticle = async (req, res, next) => {
   try {
     const searchTerm = req.body.searchTerm;
     const article = await Article.find({
-      $text: { $search: searchTerm, $diacriticSensitive: false },
+      $text: { $search: searchTerm, $diacriticSensitive: false, $casaSensitive: false },
     });
-    console.log(searchTerm)
+    console.log(article)
     return res.render("articles/search", {
       title: "Cooking Blog - Search",
        article

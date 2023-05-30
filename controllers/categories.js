@@ -23,7 +23,7 @@ exports.getCategoriesById = async (req, res, next) => {
     const categoryId = req.params.id;
     const limitNumber = 20;
     const category = await Category.findOne({ name: categoryId });
-    console.log(categoryId)
+    
     const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
       limitNumber
     );
