@@ -1,0 +1,157 @@
+body {
+    background-color: rgb(185, 173, 156) !important;
+}
+
+.container {
+    margin-top: 1.5rem;
+    background-color: rgb(211, 191, 162) !important;
+    border-radius: 7px;
+}
+
+.blog_title {
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgb(119, 149, 233);
+}
+
+.action_buttons {
+    justify-content: center;
+    display: flex;
+    height: 3rem;
+    padding-bottom: 1rem;
+}
+
+.action_button {
+    text-decoration: none;
+    color: black;
+    display: inline;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    font-weight: 350;
+    padding: 0.1rem 1rem;
+
+}
+
+.all_articles {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-left: 2rem;
+}
+
+.action_button:hover {
+    /* border: solid 0.15rem rgb(192, 177, 155); */
+    box-shadow: 0px 18px 19px -14px rgb(131, 110, 102);
+}
+
+.article {
+    display: flex;
+    align-items: center;
+    background-color: rgb(245, 234, 224);
+    border-radius: 7px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.article_img {
+    margin-left: 1.5rem;
+    width: 28rem;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 15px 12px 23px -11px rgba(66, 68, 90, 1);
+}
+
+.article_img:hover {
+    transform: scale(1.01);
+}
+
+.article_body {
+    margin-left: 2rem;
+    width: 44rem;
+    background-color: rgba(238, 226, 220, 0.986);
+    padding-left: 2rem;
+    border-radius: 10px;
+    height: 13rem;
+    align-items: center;
+    padding-top: 1.5rem;
+    box-shadow: 8px 8px 24px -21px rgba(66, 68, 90, 1);
+}
+
+.article_title {
+    text-transform: capitalize;
+}
+
+.article_creation {
+    font-style: italic;
+
+}
+
+.article_description {
+    padding-bottom: 1.1rem;
+}
+
+.btn_group {
+    display: flex;
+    width: 20rem;
+    justify-content: space-around;
+    text-align: center;
+
+}
+
+.description_button {
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    text-decoration: none;
+    font-size: 14px;
+    border: hidden;
+    padding: 10px 23px;
+    border-radius: 20px;
+    height: 2rem;
+    line-height: 1;
+}
+
+.description_button:hover {
+    transform: scale(1.05);
+}
+
+.btn_more {
+    color: #fff;
+    background-color: #4584c4fd;
+}
+
+.btn_edit {
+    color: #fff;
+    background-color: #5da5eefd;
+}
+
+.btn_delete {
+    color: #fff;
+    background-color: #b9a89ffd;
+}
+
+.pages {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.pages a {
+    text-decoration: none;
+    font-weight: 450;
+    font-size: 1.2rem;
+    color:  #5f5550fd;
+    padding: 0 0.2rem;
+    margin: 0 0.25rem;
+
+}
+
+.pages a:hover,
+.pages a:active,
+.pages a.active {
+  background:#5f5550fd;
+  color: white;
+  border-radius: 10px;
+}
