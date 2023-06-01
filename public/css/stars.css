@@ -48,10 +48,11 @@
   }
   
   .starability-basic {
-    display: block;
+    display: flex;
+    justify-content: center;
     position: relative;
     width: 150px;
-    min-height: 60px;
+    min-height: 40px;
     padding: 0;
     border: none;
   }

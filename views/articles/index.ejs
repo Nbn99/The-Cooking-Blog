@@ -19,6 +19,7 @@
               <% } %>
               <a href="/articles/random" class="action_button">Show random</a>
             </div>
+
             <p class="all_articles">All Articles</p>
               <% if (articles.length > 0) { %>
                 <% for (let article of articles) { %>
@@ -37,15 +38,17 @@
                       <div class="article_description mb-2">
                         <%= article.description %>
                       </div>
+
                       <div class="btn_group">
-                      <a href="articles/<%= article._id %>" class="description_button btn_more">Read More</a>
-                      <% if (isAuthenticated) { %>
+                        <a href="articles/<%= article._id %>" class="description_button btn_more">Read More</a>
+                        <% if (isAuthenticated) { %>
                         <a href="articles/edit/<%= article._id %>" class="description_button btn_edit">Edit</a>
                         <form action="/articles/<%= article._id %>?_method=DELETE" method="POST" class="d-inline">
                           <button type="submit" class="description_button btn_delete">Delete</button>
                         </form>
                         <% } %>
                       </div>
+
                     </div>
                   </div>
                   <% } %>
