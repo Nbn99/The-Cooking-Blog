@@ -1,47 +1,42 @@
-<head>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/articles">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/articles">All Articles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/categories">Categories</a>
-          </li>
+<nav>
+  <div class="navbar_div">
+        <a class="navbar_icon" href="/articles">CB</a>
+      
+          <div class="navbar_list" id="">
+            <a class="navbar_link active" aria-current="page" href="/articles">All Articles</a>
+            <a class="navbar_link active" aria-current="page" href="/categories">Categories</a>
+          </div>
           
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Users
-            </a>
-            <ul class="dropdown-menu">
+          <div class="dropdown">
+            <button class="drop_btn">Users  <span class="material-symbols-outlined">
+              expand_more
+              </span> </button>
+            
+            <div class="dropdown-content">
               <% if (!isAuthenticated) { %>
-                <li><a class="dropdown-item" href="/users/signup">Sign Up</a></li>
-                <li><a class="dropdown-item" href="/users/login">Log In</a></li>
+                <div class="a_group">
+                  <a class="dropdown_item" href="/users/signup">Sign Up</a>
+                  <a class="dropdown_item" href="/users/login">Log In</a>
+                </div>
+              
 
                 <% } else { %>
-                  <li><a class="dropdown-item" href="/users">Our users</a></li>
-                  <li>
+                  <div class="a_group">
+                    <a class="dropdown_item" href="/users">Our users</a>
+                  </div>
                     <form action="/users/logout" method="POST">
-                      <button type="submit">Logout</button>
+                      <button class="logout_button" type="submit">Logout</button>
                     </form>
-                  </li>
                   <% } %>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex" role="search" method="POST" action="/articles/search">
-          <input class="form-control me-2" type="search" name="searchTerm" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-
-      </div>
-    </div>
-  </nav>
-
-</head>
+            </div>
+          </div>
+        
+     
+          <div class="nav_search">
+            <form class="search_form" role="search" method="POST" action="/articles/search">
+              <input class="nav_input" type="search" name="searchTerm" placeholder="Search" aria-label="Search">
+              <button class="btn_search" type="submit">Search</button>
+            </form>
+          </div>
+   </div>
+</nav>

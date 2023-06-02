@@ -5,134 +5,159 @@
   <body>
     <%- include('../includes/navigation.ejs') %>
       <div class="container">
-        <h1 class="mb-4">
+       
+        <p class="recipe_title">
           <%= article.title %>
-        </h1>
+        </p>
+        <div class="recipe">
+          <img class="recipe_image" src="/<%= article.img %>" alt="<%= article.title %>">
+          <div class="recipe_ingredients">
+            <p ><a class="ingredients_pdf" href="/articles/ingredients/<%= article._id %>">Ingredients<sup>*</sup></a></p>
+            <ul class="recipe_ingredients_list">
+              <% article.ingredients.forEach(function(ingredients, index){ %>
+                <li class="single_ingredient"><%= ingredients %></li>
+              <% }) %>
+            </ul>
+              <p class="download_ingredients"><sup>*</sup>click to download ingredients</p>
 
-        <div class="image">
-          <img src="/<%= article.img %>" alt="<%= article.title %>">
-        </div>
-
-        <div class="text-muted mb-2 ">
-          <%= article.createdAt.toLocaleDateString() %>
-        </div> 
-        <div class="text-muted mb-2 ">
-         Created by: <%= article.userId.email%>
-        </div>
-        <div>
-          <ul class="categories">
-            <% article.category.forEach(function(category, index){ %>
-              <li class="list-group-item"><%= category %></li>
-            <% }) %>
-        </div>
-        <div>
-                  <h1><a href="/articles/ingredients/<%= article._id %>">Ingredients</a></h1>
-                  <ul class="ingredients">
-                    <% article.ingredients.forEach(function(ingredients, index){ %>
-                      <li class="list-group-item"><%= ingredients %></li>
-                    <% }) %>
-      </div>
-
-        <div>
-          <%= article.description %>
-        </div>
-
-        <div class="col-6">
-          <% if(isAuthenticated){ %>
-          <h2>Leave a Review</h2>
-          <form action="/articles/<%=article._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
-             
-              <fieldset class="starability-basic">
-               
-                  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
-                      aria-label="No rating." />
-                  
-                  <input type="radio" id="first-rate1" name="rating" value="1" />
-                  <label for="first-rate1" title="Terrible">1 star</label>
-                  <input type="radio" id="first-rate2" name="rating" value="2" />
-                  <label for="first-rate2" title="Not good">2 stars</label>
-                  <input type="radio" id="first-rate3" name="rating" value="3" />
-                  <label for="first-rate3" title="Average">3 stars</label>
-                  <input type="radio" id="first-rate4" name="rating" value="4" />
-                  <label for="first-rate4" title="Very good">4 stars</label>
-                  <input type="radio" id="first-rate5" name="rating" value="5" />
-                  <label for="first-rate5" title="Amazing">5 stars</label>
-              </fieldset>
-           
-              <div class="mb-3">
-                  <label class="form-label" for="description">Review Text</label>
-                  <textarea class="form-control" name="description" id="description" cols="30" rows="3" required></textarea>
-                  <div class="valid-feedback">
-                      Looks good!
-                  </div>
-              </div>
-              <button class="btn btn-success">Submit</button>
-            
-          </form>
-          <% } %>
-
-          <% if(article.reviews != '') { %>
-          <% for(let review of article.reviews) { %>
-         
-          <div class="card mb-3 ">
-              <div class="card-body">
-                  <h5 class="card-title"> <%= review.userId %></h5>
-                  <p class="starability-result" data-rating="<%= review.rating%>">
-                      Rated: <%= review.rating %> stars 
-                  </p>
-                  <p class="card-text">Review: <%= review.description%></p>
-              </div>
-              <%  if( isAuthenticated )  {%>
-                <form action="/articles/<%=article._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                </form>
-                <% } %>
           </div>
-          <% } %>
-          <% } %>
-      </div>
-      
-      <div class="col-6">
-        <% if(isAuthenticated){ %>
-        <h2>Leave a Comment</h2>
-        <form action="/articles/<%=article._id%>/comments" method="POST" class="mb-3 validated-form" novalidate>
-                  
-            <div class="mb-3">
-                <label class="form-label" for="description">Comment Text</label>
-                <textarea class="form-control" name="description" id="description" cols="30" rows="3" required></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <button class="btn btn-success">Submit</button>
-          
-        </form>
-        <% } %>
 
-        <% if(article.comments != '') { %>
-        <% for(let comment of article.comments) { %>
-        <div class="card mb-3 ">
-            <div class="card-body">
-                <h5 class="card-title"> <%= comment.userId.email %></h5>
-                <p class="card-text">Comment: <%= comment.description%></p>
-            </div>
-            <%  if( isAuthenticated )  {%>
-              <form action="/articles/<%=article._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                  <button class="btn btn-sm btn-danger">Delete</button>
+
+        </div>
+        <div class="under_image">
+          <div class="recipe_creation">
+            <p> Made by:</p> <p><%= article.userId.email%></p> 
+              <p><%= article.createdAt.toLocaleDateString() %></p>
+          </div> 
+           
+          <div class="recipe_categories">
+              <p>Categories:</p>
+              <ul class="recipe_categories_list">
+                <% article.category.forEach(function(category, index){ %>
+                  <li class="single_category"><%= category %></li>
+                <% }) %>
+          </div>
+        </div>
+       
+        
+        <div class="recipe_description_and_action">
+
+          <div class="recipe_description">
+            <p>Description and Instruction:</p>
+            <p><%= article.description %></p>
+          </div>
+
+          <div class="recipe_user_action">
+
+            <div class="recipe_review">
+              <% if(isAuthenticated){ %>
+                <p>Leave a Review</p>
+              
+              <form action="/articles/<%=article._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+                 <div class="starability_basic_div">
+                  <fieldset class="starability-basic">
+                   
+                      <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked
+                          aria-label="No rating." />
+                      
+                      <input type="radio" id="first-rate1" name="rating" value="1" />
+                      <label for="first-rate1" title="Terrible">1 star</label>
+                      <input type="radio" id="first-rate2" name="rating" value="2" />
+                      <label for="first-rate2" title="Not good">2 stars</label>
+                      <input type="radio" id="first-rate3" name="rating" value="3" />
+                      <label for="first-rate3" title="Average">3 stars</label>
+                      <input type="radio" id="first-rate4" name="rating" value="4" />
+                      <label for="first-rate4" title="Very good">4 stars</label>
+                      <input type="radio" id="first-rate5" name="rating" value="5" />
+                      <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+                </div>
+               
+                  <div class="recipe_review_text">
+                      <textarea class="recipe_review_textarea" name="description" id="description" required></textarea>
+                      <div class="valid-feedback">
+                          Looks good!
+                      </div>
+                  </div>
+                  <button class="review_button">Submit</button>
               </form>
               <% } %>
+
+              
+            </div>
+            <div class="recipe_comment">
+              <% if(isAuthenticated){ %>
+              <p>Leave a Comment</p>
+              <form action="/articles/<%=article._id%>/comments" method="POST" class="mb-3 validated-form" novalidate>
+                        
+                  <div class="recipe_comment_text">
+                      <textarea class="recipe_comment_textarea" name="description" id="description"required></textarea>
+                      <div class="valid-feedback">
+                          Looks good!
+                      </div>
+                  </div>
+                  <button class="comment_button">Submit</button>
+              </form>
+              <% } %>
+            </div>
+         </div>
+
+         <div class="recipe_user_display_reviews">
+          <p>Reviews:</p>
+          <% if(article.reviews != '') { %>
+             <% for(let review of article.reviews) { %>
+           
+             <div class="recipe_review_display">
+                 <div class="recipe_review_display_body">
+                     <h5 > User name: </h5>
+                     <p class="recipe_review_display_user"><%= review.userId %></p>
+                     <p class="starability-result" data-rating="<%= review.rating%>">
+                         Rated: <%= review.rating %> stars 
+                     </p>
+                     <p class="recipe_review_display_text"><%= review.description%></p>
+                 </div>
+                 <%  if( isAuthenticated )  {%>
+                   <form action="/articles/<%=article._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                       <button class="description_button btn_delete">Delete</button>
+                   </form>
+                   <% } %>
+             </div>
+             <% } %>
+           <% } %>
+
+
+         
         </div>
-        <% } %>
-        <% } %>
-    </div>
+        <div class="recipe_user_display_comments">
+          <p>Comments:</p>
+          <% if(article.comments != '') { %>
+          <% for(let comment of article.comments) { %>
+            <div class="recipe_comment_display">
+                <div class="recipe_comment_display_body">
+                    <h5 >User name: </h5>
+                    <p class="recipe_comment_display_user"><%= comment.userId %></p>
+                    <p class="recipe_comment_display_text"><%= comment.description%></p>
+                </div>
+                <%  if( isAuthenticated )  {%>
+                  <form action="/articles/<%=article._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                      <button class="description_button btn_delete">Delete</button>
+                  </form>
+                  <% } %>
+            </div>
+           <% } %>
+        <% } %></div>
+      </div>
+      
+        <div class="recipe_btn_group">
+          <a href="/articles" class="recipe_description_button btn_all_articles"> All articles</a>
+          <% if (isAuthenticated) { %>
+          <a href="/articles/edit/<%= article._id %>" class="recipe_description_button btn_edit"> Edit</a>
+          <form action="/articles/<%= article._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class=" recipe_description_button btn_danegr">Delete</button>
+          </form>
+          <% } %>
+        </div>
         
-        <a href="/articles" class="btn btn-secondary"> All articles</a>
-        <% if (isAuthenticated) { %>
-        <a href="/articles/edit/<%= article._id %>" class="btn btn-info"> Edit</a>
-        <form action="/articles/<%= article._id %>?_method=DELETE" method="POST" class="d-inline">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-        <% } %>
        
 
        

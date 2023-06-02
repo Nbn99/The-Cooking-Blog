@@ -1,0 +1,133 @@
+nav {
+    padding: 2rem;
+    width: 100%;
+    position: sticky;
+}
+
+.navbar_div {
+    width: 100%;
+    display: flex;
+    background-color: rgb(238, 217, 192);
+    border-radius: 10px;
+    align-items: baseline;
+}
+
+.navbar_icon {
+    margin-left: 5rem;
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: rgb(150, 55, 55);
+    padding: 1.5rem;
+}
+
+.navbar_list {
+    display: flex;
+    padding-left: 5rem;
+}
+
+.navbar_link {
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 1.5rem;
+    color: rgb(22, 36, 54);
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.drop_btn {
+    border: hidden;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: rgb(238, 217, 192);
+    color: rgb(22, 36, 54);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fcf0e7;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.a_group {
+    color: rgb(22, 36, 54);
+    padding: 12px 16px;
+    font-size: 1rem;
+    display: block;
+}
+
+.dropdown_item {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: rgb(238, 217, 192);
+    text-align: center;
+    color: rgb(22, 36, 54);
+    font-weight: 400;
+    border-bottom: 2px solid grey ;
+}
+
+.logout_button {
+    border: hidden;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: rgb(206, 190, 171);
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    margin-left: 2.5rem;
+    display: block;
+    border-bottom: 2px solid grey ;
+    margin-bottom: 0.5rem;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.nav_search {
+    display: flex;
+    width: 60rem;
+    justify-content: end;
+}
+
+.search_form {
+    display: flex;
+}
+
+.nav_input {
+    width: 9rem;
+    margin-right: 0.7rem;
+    border: hidden;
+    border-radius: 10px;
+    border-bottom: 2px solid grey;
+}
+
+.nav_input:focus {
+    border-color: #c2c2c2fd;
+}
+
+.nav_input::placeholder {
+    padding-left: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.btn_search {
+    border-radius: 10px;
+    margin-left: 0.3rem;
+    border: hidden;
+    padding: 0.5rem;
+    border-bottom: 2px solid grey;
+   
+}
