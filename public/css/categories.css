@@ -1,0 +1,47 @@
+.categories {
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: 500;
+    margin-left: 1rem;
+}
+
+.new_category_button {
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    text-decoration: none;
+    font-size: 1.5rem;
+    border: hidden;
+    padding: 10px 23px;
+    border-radius: 20px;
+    height: 2rem;
+    line-height: 1;
+    border-bottom: 2px solid grey;
+    color: rgb(21, 51, 41);
+    background-color: rgb(183, 221, 183);
+    margin-left: 1.5rem;
+}
+
+.category_div {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category_image {
+    margin-left: 1.5rem;
+    width: 25rem;
+    height: 19rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 15px 12px 23px -11px rgba(66, 68, 90, 1);
+}
+
+.category_link {
+    text-align: center;
+    text-decoration: none;
+    color: rgb(21, 51, 41);
+    text-transform: capitalize;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
