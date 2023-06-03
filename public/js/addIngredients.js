@@ -7,11 +7,11 @@ addIngredientsBtn.addEventListener("click", function () {
   index++;
   let newIngredients = document.createElement("input");
   let newButton = document.createElement("button");
-  newIngredients.className = "form-control mb-1";
+  newIngredients.className = "form-control new_article_input";
   newIngredients.id = `ingredient_${index}`;
   newIngredients.type = "text";
   newIngredients.name = "ingredients";
-  newButton.className = "btn btn-outline-danger mb-2";
+  newButton.className = "btn_delete_ingredient";
   newButton.name = "ingredientsButton";
   newButton.type = "button";
   newButton.id = `remove_${index}`;

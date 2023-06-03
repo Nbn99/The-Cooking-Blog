@@ -14,14 +14,16 @@
               <div class="action_buttons">
               <a href="/articles/new" class="action_button">New Article</a>
               <a href="/categories/new" class="action_button">New Category</a>
+            </div>
               <% } %>
+              <div class="action_buttons">
               <a href="/articles/random" class="action_button">Show random</a>
             </div>
 
             <p class="all_articles">All Articles</p>
               <% if (articles.length > 0) { %>
                 <% for (let article of articles) { %>
-                  <div class="article mt-4">
+                  <div class="article ">
                     <a href="articles/<%= article._id %>">
                     <img class=" article_img" src="/<%= article.img %>" alt="<%= article.title %>">
                   </a>
