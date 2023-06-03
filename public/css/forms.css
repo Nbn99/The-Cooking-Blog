@@ -1,0 +1,63 @@
+/* category form  */
+.new_category_title {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+}
+.category_form {
+    padding: 3rem 4rem ;
+    
+}
+
+.form_label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    
+}
+
+.form-control {
+    background-color: rgba(243, 236, 233, 0.986);
+    margin-bottom: 1.5rem;
+}
+
+.form-control:focus {
+    background-color: rgba(243, 236, 233, 0.986);
+    border-color: rgb(193, 232, 241);
+}
+
+.category_form_textarea, .category_form_name{
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.form_btn_group {
+    display: flex;
+    width: fit-content;
+    text-align: center;
+    padding: 0;
+    justify-content: space-around;
+    border: hidden;
+    font-size: 1.2rem;
+}
+
+.btn_cancel {
+    color: aliceblue;
+    text-decoration: none;
+    background-color: grey;
+    padding: 1rem 1.5rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    line-height: 1;
+}
+
+.btn_submit {
+    color: aliceblue;
+    text-decoration: none;
+    background-color: rgb(184, 105, 164);
+    padding: 1rem 1.5rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    line-height: 1;
+    border: hidden;
+}
