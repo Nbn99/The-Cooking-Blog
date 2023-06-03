@@ -98,7 +98,6 @@ body {
     width: 20rem;
     justify-content: space-around;
     text-align: center;
-
 }
 
 .description_button {
@@ -214,10 +213,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.recipe_ingredients>ul {
-
 }
 
 .download_ingredients {
