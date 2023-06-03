@@ -1,43 +1,56 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
   </head>
 
   <body>
     <%- include('../includes/navigation.ejs') %>
-      <container>
-        <main>
-          <% if (errorMessage) { %>
-            <div class="user-message user-message--error">
-              <%= errorMessage %>
-            </div>
-            <% } %>
-              <form class="login-form" action="/users/login" method="POST">
-                <div class="form-control">
-                  <label for="email">E-Mail</label>
-                  <input 
-                      class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
-                      type="email" 
-                      name="email" 
-                      id="email" 
-                      value="<%= oldInput.email %>">
-              </div>
-              <div class="form-control">
-                  <label for="password">Password</label>
-                  <input 
-                      class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
-                      type="password" 
-                      name="password" 
-                      id="password" 
-                      value="<%= oldInput.password %>">
-              </div>
-
-                <button class="btn" type="submit">Login</button>
-                <a href="/users/signup" class="btn "> Signup</a>
-              </form>
-              <div class="centered">
-                <a href="/users/reset-password" class="btn ">Reset Password</a>
-              </div>
-        </main>
-      </container>
+      <div class="container"> 
+        <div class="signup_container_center">
+          <div class="signup_container">
+              <div>
+                 <p class="signup_title">Log In!</p>
+               </div>
+              <main class="signup_form">
+                <% if (errorMessage) { %>
+                  <div class="user-message user-message--error errors">
+                    <%= errorMessage %>
+                  </div>
+                  <% } %>
+                    <form class="login-form" action="/users/login" method="POST">
+                      <div class="form-control">
+                        <label class="signup_label" for="email">E-Mail</label>
+                        <input 
+                            class="signup_input <%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            value="<%= oldInput.email %>">
+                    </div>
+                    <div class="form-control">
+                        <label class="signup_label" for="password">Password</label>
+                        <input 
+                            class=" signup_input <%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            value="<%= oldInput.password %>">
+                    </div>
+                    <div class="form_btn_group">
+                        <button class="btn_login" type="submit">Login</button>
+                        <a href="/users/signup" class="btn_signup "> Signup</a>
+                      </form>
+                    </div>
+                        <div class="reset_password">
+                          <a href="/users/reset-password" class="btn_reset_password ">Reset Password</a>
+                        </div>
+                    
+                      
+               </main>
+          </div>
+        </div>
+      </div>
+       
+      
 
 
       <%- include('../includes/end.ejs') %>
