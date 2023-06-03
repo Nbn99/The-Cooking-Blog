@@ -116,6 +116,7 @@ nav {
 
 .nav_input:focus {
     border-color: #c2c2c2fd;
+    outline: none;
 }
 
 .nav_input::placeholder {

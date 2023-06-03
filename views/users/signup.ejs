@@ -1,45 +1,62 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
 </head>
 <body>
   <%- include('../includes/navigation.ejs') %>
-
-  <main>
-    <% if (errorMessage) { %>
-      <div class="user-message user-message--error"><%= errorMessage %></div>
-  <% } %>
-  <form class="login-form" action="/users/signup" method="POST">
-    <div class="form-control">
-      <label for="email">E-Mail</label>
-      <input 
-          class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
-          type="email" 
-          name="email" 
-          id="email" 
-          value="<%= oldInput.email %>">
+  <div class="container">
+    <div class="signup_container_center">
+      <div class="signup_container">
+        <div>
+          <p class="signup_title">Sign Up!</p>
+        </div>
+        
+        <main class="signup_form">
+          
+          <% if (errorMessage) { %>
+            <div class="user-message user-message--error errors"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/users/signup" method="POST">
+          <div class="form-control">
+            <label class="signup_label" for="email">E-Mail</label>
+            <input 
+                class="signup_input <%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                type="email" 
+                name="email" 
+                id="email" 
+                value="<%= oldInput.email %>">
+        </div>
+        <div class="form-control">
+            <label class="signup_label for="password">Password</label>
+            <input 
+                class="signup_input <%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                type="password" 
+                name="password" 
+                id="password" 
+                value="<%= oldInput.password %>">
+        </div>
+        <div class="form-control">
+            <label class="signup_label for="confirmPassword>Confirm Password</label>
+            <input 
+                class="signup_input <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+                type="password" 
+                name="confirmPassword" 
+                id="confirmPassword" 
+                value="<%= oldInput.confirmPassword %>">
+        </div>
+        <div class="form_btn_group">
+          <button class="btn_signup" type="submit">Signup</button>
+          <a href="/articles" class="btn_home "> Home</a>
+        </div>
+            
+            
+          </form>
+        </main>
+      </div>
+    </div>
+   
   </div>
-  <div class="form-control">
-      <label for="password">Password</label>
-      <input 
-          class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
-          type="password" 
-          name="password" 
-          id="password" 
-          value="<%= oldInput.password %>">
-  </div>
-  <div class="form-control">
-      <label for="confirmPassword">Confirm Password</label>
-      <input 
-          class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
-          type="password" 
-          name="confirmPassword" 
-          id="confirmPassword" 
-          value="<%= oldInput.confirmPassword %>">
-  </div>
-      
-      <button class="btn" type="submit">Signup</button>
-      <a href="/articles" class="btn "> Home</a>
-    </form>
-  </main>
+  
+  
  
 
   <%- include('../includes/end.ejs') %>

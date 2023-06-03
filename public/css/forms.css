@@ -1,17 +1,28 @@
 /* category form  */
+
+.errors {
+    width: fit-content;
+    background-color: rgb(199, 90, 90);
+    color: white;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin: 2rem;
+}
+
 .new_category_title {
     padding-top: 1rem;
     padding-left: 1.5rem;
 }
+
 .category_form {
-    padding: 3rem 4rem ;
-    
+    padding: 3rem 4rem;
+
 }
 
 .form_label {
     font-size: 1.5rem;
     font-weight: 600;
-    
+
 }
 
 .form-control {
@@ -24,7 +35,8 @@
     border-color: rgb(193, 232, 241);
 }
 
-.category_form_textarea, .category_form_name{
+.category_form_textarea,
+.category_form_name {
     padding: 1rem;
     font-size: 1rem;
     line-height: 1.4;
@@ -61,3 +73,89 @@
     line-height: 1;
     border: hidden;
 }
+
+/* category form  */
+
+/* user form  */
+.signup_container_center {
+    display: flex;
+    justify-content: center;
+}
+.signup_container {
+    margin: 1.5rem;
+    background-color: rgb(211, 191, 162) !important;
+    border-radius: 7px;
+    width: fit-content;
+    display: block;
+    align-items: center;
+    padding-bottom: 2rem;
+
+}
+
+.signup_title {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 1rem;
+}
+
+.signup_form {
+    padding: 2rem;
+    background-color: rgb(233, 213, 185);
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.form-control {
+    width: 25rem;
+}
+
+.signup_label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-right: 1rem;
+    display: block;
+}
+
+.signup_input {
+    margin-top: 1rem;
+    width: 23.5rem;
+    border: hidden;
+    background-color: rgb(207, 207, 204);
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+
+}
+
+.signup_input:active {
+    border-color: rgb(195, 221, 212);
+}
+
+.btn_signup {
+    color: aliceblue;
+    text-decoration: none;
+    background-color: rgb(87, 182, 59);
+    padding: 0.8rem 1rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    line-height: 1;
+    border:hidden;
+    border-bottom: 2px solid grey ;
+}
+
+.btn_home {
+    color: aliceblue;
+    text-decoration: none;
+    background-color: rgb(110, 105, 184);
+    padding: 0.8rem 1rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    line-height: 1;
+    border-bottom: 2px solid grey ;
+}
+
+/* user form  */
