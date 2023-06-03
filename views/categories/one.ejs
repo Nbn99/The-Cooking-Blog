@@ -12,16 +12,16 @@
                             <div class="display_category_div ">
                                 <img class="all_category_image" src="/<%= category.img %>" alt="<%= category.name %>" loading="lazy">
                             </div>
-                            <div class="one_category_description"><%= category.description %></div>
+                            <div class="one_category_description"><%= category.description %>
                             <% } %>
                             <% if (isAuthenticated) { %>
                                 <div class="one_category_buttons">
-                                    <a href="/categories/edit/<%= category._id %>" class="btn_edit"> Edit</a>
+                                    <a href="/categories/edit/<%= category._id %>" class=" description_button btn_edit"> Edit</a>
                                     <form action="/categories/<%= category._id %>?_method=DELETE" method="POST" class="d-inline">
-                                      <button type="submit" class="btn_delete">Delete</button>
+                                      <button type="submit" class="description_button btn_delete">Delete</button>
                                     </form>
                                 </div>
-                                
+                            </div>
                                 <% } %>
                         </div>
     
@@ -29,8 +29,8 @@
             <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
                 <% if(typeof articles !=='undefined' && articles != '') { %>
                     <% articles.forEach(function(article, index){ %>
-                        <a href="/articles/<%= article._id %>" class="col text-center category__link">
-                            <div class="category__img category__img--large shadow">
+                        <a href="/articles/<%= article._id %>" class="all_category_link">
+                            <div class="all_category_image">
                                 <img src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">
                             </div>
                             <div class="pt-1">
@@ -39,7 +39,7 @@
                         </a>
                         <% }) %>
                             <% } else { %>
-                                <p>No items found.</p>
+                                <p class="category_no_item">No item found.</p>
                                 <% } %>
             </div>
         </div>

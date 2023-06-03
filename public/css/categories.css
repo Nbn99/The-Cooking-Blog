@@ -54,11 +54,11 @@
     color: rgb(21, 51, 41);
     text-transform: capitalize;
     font-size: 2rem;
-    margin-bottom: -2.3rem;
+    
 }
 .one_category {
     display: flex;
-    
+    align-items: center;
 }
 .display_category_div{
     justify-items: center;
@@ -70,14 +70,27 @@
     background-color: rgba(243, 236, 233, 0.986);
     height: fit-content;
     width: fit-content;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     border-radius: 10px;
     margin: 0 2rem;
     align-items: center;
     justify-items: center;
-    display: flex;
+    display: block;
+    font-size: 1.3rem;
+    
 }
 
 .one_category_buttons {
-    
+    display: flex;
+    width: 12rem;
+    text-align: center;
+    padding-top: 3rem;
+    justify-content: space-around;
+}
+
+.category_no_item {
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 2rem;
+    width: fit-content;
 }
