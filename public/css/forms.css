@@ -76,7 +76,7 @@
 
 /* category form  */
 
-/* signup and login form  */
+/* user form  */
 .signup_container_center {
     display: flex;
     justify-content: center;
@@ -187,5 +187,18 @@
     border-bottom: 2px solid grey ;
 }
 
+.btn_update_password{
+    color: aliceblue;
+    text-decoration: none;
+    background-color:rgb(191, 139, 235);
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    border-radius: 20px;
+    line-height: 1;
+    border:hidden;
+    border-bottom: 2px solid grey ;
+}
 
-/* signup and login form  */
+/* userform  */
+
