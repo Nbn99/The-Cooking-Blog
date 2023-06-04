@@ -24,9 +24,17 @@ exports.getCategoriesById = async (req, res, next) => {
     const limitNumber = 20;
     const category = await Category.findOne({ name: categoryId });
     
-    const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
-      limitNumber
-    );
+    // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
+    //   limitNumber
+    // );
+
+    const articles = await Article.aggregate().search({
+      text: {
+        query: categoryId,
+        path: "category"
+      }
+    }).limit(limitNumber)
+
     await res.render("categories/one", {
       title: "Cooking Blog - Categories",
       category,  

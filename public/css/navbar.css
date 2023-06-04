@@ -100,6 +100,7 @@ nav {
     display: flex;
     width: 60rem;
     justify-content: end;
+
 }
 
 .search_form {
@@ -109,6 +110,7 @@ nav {
 .nav_input {
     width: 9rem;
     margin-right: 0.7rem;
+    padding-left: 0.5rem;
     border: hidden;
     border-radius: 10px;
     border-bottom: 2px solid grey;

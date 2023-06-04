@@ -87,8 +87,9 @@
 }
 
 .category_no_item {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 600;
+    font-style: italic;
     padding: 2rem;
     width: fit-content;
 }

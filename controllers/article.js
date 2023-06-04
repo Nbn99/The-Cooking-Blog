@@ -2,14 +2,14 @@ const fs = require("fs");
 const path = require("path");
 const fileHelper = require("../util/file");
 const PDFDocument = require("pdfkit");
-
 const { validationResult } = require("express-validator");
 const Article = require("../models/article");
 const Category = require("../models/category");
 const User = require("../models/users");
 const Review = require("../models/review");
 const { Console } = require("console");
-const article = require("../models/article");
+const { search } = require("../../colt/yelpcamp/routes/users");
+
 
 const ITEMS_PER_PAGE = 2;
 
@@ -272,9 +272,14 @@ exports.deleteArticle = async (req, res, next) => {
 exports.searchArticle = async (req, res, next) => {
   try {
     const searchTerm = req.body.searchTerm;
-    const article = await Article.find({
-      $text: { $search: searchTerm, $diacriticSensitive: false, $casaSensitive: false },
-    });
+    
+    const article = await Article.aggregate().search({
+      text: {
+        query: searchTerm,
+        path: "title"
+      }
+    })
+    
     console.log(article)
     return res.render("articles/search", {
       title: "Cooking Blog - Search",
