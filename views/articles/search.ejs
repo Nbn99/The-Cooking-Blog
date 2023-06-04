@@ -1,25 +1,32 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/categories.css">
     </head>
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-            <h1 class="pb-4">Search Results</h1>
-
-            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-                <% if(article !='' ) { %>
-                    <% article.forEach(function(article, index){ %>
-                        <a href="/articles/<%= article._id %>" class="col text-center category__link">
-                            <div class="image">
-                                <img src="/<%= article.img %>" alt="<%= article.title %>">
-                              </div>
-                            <div class="pt-1">
-                                <%= article.title %>
-                            </div>
-                        </a>
-                        <% }) %>
-                            <% } else { %>
-                                <p>No Article found.</p>
-                                <% } %>
+        <div class="container">
+            <div class="one_category_name">
+                <p >Search Results </p>  
             </div>
+               
+                <div class="all_category_div">
+                    <% if(article !='' ) { %>
+                        <% article.forEach(function(article, index){ %>
+                            <a href="/articles/<%= article._id %>" class="all_category_link">
+                                <div class="all_category_img">
+                                    <img class="all_category_image" src="/<%= article.img %>" alt="<%= article.title %>">
+                                  </div>
+                                  <div class="article_title">
+                                    <%= article.title %>
+                                </div>
+                            </a>
+                            <% }) %>
+                                <% } else { %>
+                                    <p class="category_no_item">No Article found.</p>
+                                    
+                                    <% } %>
+                </div>
+        </div>
+        
 
             <%- include('../includes/end.ejs') %>

@@ -17,7 +17,7 @@ exports.getCategories = async (req, res, next) => {
     res.status(500).send({ message: error.message || "Error Occured" });
   }
 };
-//naprawić getCategoriesById
+
 exports.getCategoriesById = async (req, res, next) => {
   try {
     const categoryId = req.params.id;

@@ -6,8 +6,11 @@
         <%- include('../includes/navigation.ejs') %>
         <div class="container">
            
-                <% if(typeof category !=='undefined' && category != '') { %>   
-                    <p class="one_category_name"><%= category.name %></p>   
+                <% if(typeof category !=='undefined' && category != '') { %> 
+                    <div class="one_category_name">
+                        <p ><%= category.name %></p>  
+                    </div>  
+                     
                     <div class="one_category">         
                             <div class="display_category_div ">
                                 <img class="all_category_image" src="/<%= category.img %>" alt="<%= category.name %>" loading="lazy">
@@ -26,20 +29,20 @@
                         </div>
     
     
-            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+            <div class="all_category_div">
                 <% if(typeof articles !=='undefined' && articles != '') { %>
                     <% articles.forEach(function(article, index){ %>
                         <a href="/articles/<%= article._id %>" class="all_category_link">
-                            <div class="all_category_image">
-                                <img src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">
+                            <div class="all_category_img">
+                                <img class="all_category_image" src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">
                             </div>
-                            <div class="pt-1">
+                            <div class="article_title">
                                 <%= article.title %>
                             </div>
                         </a>
                         <% }) %>
                             <% } else { %>
-                                <p class="category_no_item">No item found.</p>
+                                <p class="category_no_item">No Article found.</p>
                                 <% } %>
             </div>
         </div>

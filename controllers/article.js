@@ -268,7 +268,7 @@ exports.deleteArticle = async (req, res, next) => {
   }
 };
 
-//nie działa search 
+
 exports.searchArticle = async (req, res, next) => {
   try {
     const searchTerm = req.body.searchTerm;
