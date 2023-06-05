@@ -1,4 +1,4 @@
-<main>
+<main class="signup_form">
     <% if (errorMessage) { %>
         <div class="user-message user-message--error errors">
             <%= errorMessage %>
@@ -7,18 +7,18 @@
         <div class="category_form">
             <form action="/categories/<% if (editing) { %>edit<% } else { %>new<% } %>" method="POST"
                 enctype="multipart/form-data">
-                <div class="form-group ">
-                    <label class="form_label  " for="name">Name</label>
+                <div class="form-control ">
+                    <label class="form_label " for="name">Name</label>
                     <input
-                        class="category_form_name <%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %> form-control"
+                        class="signup_input <%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %> form-control"
                         type="text" name="name" id="name"
                         value="<% if (editing || hasError) { %><%= category.name %><% } %>">
                 </div>
                 <div class="form-control">
                     <label class="form_label" for="image">Image</label>
-                    <input class="form-control" type="file" name="image" id="image">
+                    <input class="form-control signup_input" type="file" name="image" id="image">
                 </div>
-                <div class="form-group ">
+                <div class="category_form_textarea_div">
                     <label class="form_label" for="description">Description</label>
                     <textarea
                         class="category_form_textarea <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %> form-control"

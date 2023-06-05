@@ -31,11 +31,37 @@
 }
 
 .form-control:focus {
-    background-color: rgba(243, 236, 233, 0.986);
+    background-color: rgb(255, 255, 246);
     border-color: rgb(193, 232, 241);
 }
 
-.category_form_textarea,
+.category_form_textarea_div {
+    background-color: rgba(243, 236, 233, 0.986);
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    width: 25rem;
+    padding: 0.5rem;
+}
+
+.category_form_textarea {
+    background-color: rgb(255, 255, 246);
+    font-size: 1rem;
+    line-height: 1.4;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    outline: none;
+    font-family: "Heebo", sans-serif;
+    font-weight: 500;
+    padding: 0.5;
+    margin: 0;
+    max-width: 24rem;
+}
+
+.category_form_textarea:focus {
+    background-color: rgb(255, 255, 246);
+    border-color: rgb(193, 232, 241);
+}
+
 .category_form_name {
     padding: 1rem;
     font-size: 1rem;
@@ -124,7 +150,7 @@
     margin-top: 1rem;
     width: 23.5rem;
     border: hidden;
-    background-color: rgb(207, 207, 204);
+    background-color: rgb(255, 255, 246);
     border-radius: 10px;
     padding: 0.5rem;
     font-size: 1rem;

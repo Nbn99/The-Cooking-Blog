@@ -5,10 +5,18 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <div class="container">
-                <h1 class="new_category_title">New Category</h1>
+                <div class="signup_container_center">
+                    <div class="signup_container">
+                        <div>
+                            <p class="signup_title">New Category</p>
+                            <%- include('../includes/cat_form.ejs') %>
+                        </div>
+                    </div>
+                </div>
+                
 
 
-                <%- include('../includes/cat_form.ejs') %>
+               
                
             </div>
             <%- include('../includes/end.ejs') %>
