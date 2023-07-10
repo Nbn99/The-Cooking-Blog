@@ -6,7 +6,7 @@
         <%- include('../includes/navigation.ejs') %>
         <div class="container">
            
-                <% if(typeof category !=='undefined' && category != '') { %> 
+            <% if(typeof category !=='undefined' && category != '') { %> 
                     <div class="one_category_name">
                         <p ><%= category.name %></p>  
                     </div>  
@@ -15,8 +15,8 @@
                             <div class="display_category_div ">
                                 <img class="all_category_image" src="/<%= category.img %>" alt="<%= category.name %>" loading="lazy">
                             </div>
-                            <div class="one_category_description"><%= category.description %>
-                            <% } %>
+                            <div class="one_category_description"><%= category.description %> </div>
+                            
                             <% if (isAuthenticated) { %>
                                 <div class="one_category_buttons">
                                     <a href="/categories/edit/<%= category._id %>" class=" description_button btn_edit"> Edit</a>
@@ -24,27 +24,27 @@
                                       <button type="submit" class="description_button btn_delete">Delete</button>
                                     </form>
                                 </div>
-                            </div>
-                                <% } %>
-                        </div>
+                            <% } %>
+                    </div>
     
     
-            <div class="all_category_div">
-                <% if(typeof articles !=='undefined' && articles != '') { %>
-                    <% articles.forEach(function(article, index){ %>
-                        <a href="/articles/<%= article._id %>" class="all_category_link">
-                            <div class="all_category_img">
-                                <img class="all_category_image" src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">
-                            </div>
-                            <div class="article_title">
-                                <%= article.title %>
-                            </div>
-                        </a>
-                        <% }) %>
-                            <% } else { %>
-                                <p class="category_no_item">No Article found.</p>
-                                <% } %>
-            </div>
+                    <div class="all_category_div">
+                        <% if(typeof articles !=='undefined' && articles != '') { %>
+                            <% articles.forEach(function(article, index){ %>
+                                <a href="/articles/<%= article._id %>" class="all_category_link">
+                                    <div class="all_category_img">
+                                        <img class="all_category_image" src="/<%= article.img %>" alt="<%= article.title %>" loading="lazy">
+                                    </div>
+                                    <div class="category_article_title">
+                                        <%= article.title %>
+                                    </div>
+                                </a>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="category_no_item">No Article found.</p>
+                        <% } %>
+                    </div>
+            <% } %>
         </div>
 
         
