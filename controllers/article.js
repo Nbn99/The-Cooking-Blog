@@ -7,6 +7,7 @@ const Article = require("../models/article");
 const Category = require("../models/category");
 const User = require("../models/users");
 const Review = require("../models/review");
+const Comment = require("../models/comment")
 const { Console } = require("console");
 const { search } = require("../../colt/yelpcamp/routes/users");
 
@@ -216,30 +217,15 @@ exports.getArticle = async (req, res, next) => {
   const artId = req.params.id;
   try {
     const article = await Article.findById(artId)
-      .populate({
-        path: "userId",
-        select: "email",
-      })
-      .populate({
-        path: "reviews",
-        select: ["description", "userId", "rating"],
-        model: "Review",
-      })
-      .populate({
-        path: "comments",
-        select: ["description", "userId"],
-        model: "Comment",
-      });
+      .populate( 'userId')
+      .populate('reviews')
+      .populate('comments')
     if (article == null) {
       res.redirect("/articles");
     } else {
-      const review = await Review.find({}).populate({
-        path: "userId",
-        select: "email",
-      });
+         
       res.render("articles/show", {
         article: article,
-        review: review,
         pageTitle: article.title,
         path: "/articles",
       });

@@ -44,11 +44,11 @@
             <p>Description and Instruction:</p>
             <p><%= article.description %></p>
           </div>
-
+          <% if(isAuthenticated){ %>
           <div class="recipe_user_action">
 
             <div class="recipe_review">
-              <% if(isAuthenticated){ %>
+              
                 <p>Leave a Review</p>
               
               <form action="/articles/<%=article._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -78,11 +78,11 @@
                   </div>
                   <button class="review_button">Submit</button>
               </form>
-              <% } %>
+             
 
             </div>
             <div class="recipe_comment">
-              <% if(isAuthenticated){ %>
+             
               <p>Leave a Comment</p>
               <form action="/articles/<%=article._id%>/comments" method="POST" class="mb-3 validated-form" novalidate>
                         
@@ -94,9 +94,11 @@
                   </div>
                   <button class="comment_button">Submit</button>
               </form>
-              <% } %>
             </div>
          </div>
+         <% } else { %>
+             <div class="recipe_not_auth"></div>
+          <% } %>
 
          <div class="recipe_user_display_reviews">
           <p>Reviews:</p>
@@ -106,7 +108,7 @@
              <div class="recipe_review_display">
                  <div class="recipe_review_display_body">
                      <h5 > User name: </h5>
-                     <p class="recipe_review_display_user"><%= review.userId %></p>
+                     <p class="recipe_review_display_user"><%= review.userId%></p>
                      <p class="starability-result" data-rating="<%= review.rating%>">
                          Rated: <%= review.rating %> stars 
                      </p>

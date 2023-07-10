@@ -296,6 +296,7 @@ body {
     box-shadow: 8px 8px 24px -21px rgba(66, 68, 90, 1);
     border-top-right-radius: 40px;
     border-bottom-left-radius: 40px;
+    margin-bottom: 2rem;
 
 }
 
@@ -451,6 +452,11 @@ body {
     transform: scale(1.05);
 }
 
+.recipe_not_auth {
+    width: 25rem;
+    
+}
+
 .recipe_user_display_reviews {
     margin-left: 1.5rem;
     padding: 1.5rem;
@@ -477,14 +483,14 @@ body {
 }
 
 .recipe_user_display_comments {
-    margin-left: 3rem;
+    margin-left: 1rem;
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 235, 205);
     padding: 1.5rem;
     height: fit-content;
     border-radius: 30px;
-    width: 25rem;
+    width: 24rem;
     border-bottom: solid grey;
 }
 
