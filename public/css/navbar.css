@@ -7,7 +7,7 @@ nav {
 .navbar_div {
     width: 100%;
     display: flex;
-    background-color: rgb(238, 217, 192);
+    background-color: rgba(238, 226, 220, 0.986);
     border-radius: 10px;
     align-items: baseline;
 }
@@ -16,7 +16,7 @@ nav {
     margin-left: 5rem;
     text-decoration: none;
     font-size: 1.8rem;
-    color: rgb(150, 55, 55);
+    color: #6f4c5b;
     padding: 1.5rem;
 }
 
@@ -44,7 +44,7 @@ nav {
     border-radius: 10px;
     font-size: 1.4rem;
     font-weight: 500;
-    background-color: rgb(238, 217, 192);
+    background-color: rgba(238, 226, 220, 0.986);
     color: rgb(22, 36, 54);
 }
 

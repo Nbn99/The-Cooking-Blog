@@ -7,12 +7,12 @@ const Article = require("../models/article");
 const Category = require("../models/category");
 const User = require("../models/users");
 const Review = require("../models/review");
-const Comment = require("../models/comment")
-const { Console } = require("console");
-const { search } = require("../../colt/yelpcamp/routes/users");
+const Comment = require("../models/comment");
 
 
-const ITEMS_PER_PAGE = 2;
+
+
+const ITEMS_PER_PAGE = 3;
 
 exports.getNewArticle = async (req, res, next) => {
   try {
