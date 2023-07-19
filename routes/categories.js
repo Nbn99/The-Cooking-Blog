@@ -20,7 +20,7 @@ router.post('/new',
             .isLength({ min: 3 })
             .trim(),
         body('description')
-            .isLength({ min: 5, max: 400 })
+            .isLength({ min: 5, max: 1500 })
             .trim()
     ],
     isLoggedIn,
@@ -28,12 +28,12 @@ router.post('/new',
 
 router.post('/edit',
     [
-        body('title')
+        body('name')
             .isString()
             .isLength({ min: 3 })
             .trim(),
         body('description')
-            .isLength({ min: 5, max: 400 })
+            .isLength({ min: 5, max: 1500 })
             .trim()
     ],
     isLoggedIn,

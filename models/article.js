@@ -43,16 +43,11 @@ const articleSchema = new Schema({
     required: true,
     ref: "User",
   },
-  reviews: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Review",
-    },
-  ],
+  
   comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Review",
+      ref: "Comment",
     },
   ],
 });

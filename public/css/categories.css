@@ -1,6 +1,5 @@
 .all_categories {
     font-size: 3rem;
-    font-style: italic;
     font-weight: 500;
     margin-left: 1rem;
 }
@@ -12,6 +11,7 @@
     font-weight: 0;
     text-decoration: none;
     font-size: 1.5rem;
+    font-weight: 600;
     border: hidden;
     padding: 10px 23px;
     border-radius: 20px;
@@ -19,7 +19,7 @@
     line-height: 1;
     border-bottom: 2px solid grey;
     color: rgb(21, 51, 41);
-    background-color: rgb(183, 221, 183);
+    background-color: rgb(222, 186, 157);
     margin-left: 1.5rem;
 }
 
@@ -28,6 +28,7 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 3rem;
+    text-decoration: none;
 }
 
 .all_category_image {
@@ -39,14 +40,24 @@
     box-shadow: 15px 12px 23px -11px rgba(66, 68, 90, 1);
 }
 
-.all_category_link {
-    text-align: center;
+.all_category_div>a {
     text-decoration: none;
+}
+
+.all_category_name {
+    text-align: center;
     color: rgb(21, 51, 41);
     text-transform: capitalize;
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
 }
+
+.all_category_name:hover {
+    color: rgb(111, 76, 91);
+    box-shadow: 0px 18px 19px -14px rgb(131, 110, 102);
+}
+
 .one_category_name>p {
     margin-left: 2rem;
     padding-top: 1rem;
@@ -58,12 +69,15 @@
     display: flex;
     justify-content: center;
 }
+
 .one_category {
     display: flex;
     align-items: center;
 }
-.display_category_div{
-    justify-items: center;
+
+.display_category_div {
+    display: block;
+    align-items: center;
 }
 
 .one_category_description {
@@ -75,17 +89,15 @@
     margin: 0 2rem;
     align-items: center;
     justify-items: center;
-    display: block;
-    font-size: 1.3rem;
-    
+    font-size: 1.1rem;
+    text-align: justify;
 }
 
 .one_category_buttons {
     display: flex;
-    width: 12rem;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
     padding-top: 3rem;
-    justify-content: space-around;
 }
 
 .category_no_item {
@@ -96,12 +108,12 @@
     width: fit-content;
 }
 
-.category_article_title{
+.category_article_title {
     text-transform: capitalize;
     margin-top: 0.5rem;
 }
 
-.category_article_title:hover{
+.category_article_title:hover {
     color: rgb(50, 50, 146);
     font-style: italic;
 }

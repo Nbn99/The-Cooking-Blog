@@ -23,7 +23,9 @@ router.post(
   "/new",
   [
     body("title").isString().isLength({ min: 3 }).trim(),
-    body("description").isLength({ min: 5, max: 400 }).trim(),
+    body("description").isLength({ min: 5}).trim(),
+    body("ingredients").isString().isLength({ min: 3 }).trim(),
+
     
   ],
   isLoggedIn,
@@ -34,7 +36,7 @@ router.post(
   "/edit",
   [
     body("title").isString().isLength({ min: 3 }).trim(),
-    body("description").isLength({ min: 5, max: 400 }).trim(),
+    body("description").isLength({ min: 5}).trim(),
     body("ingredients").isString().isLength({ min: 3 }).trim(),
   ],
   isLoggedIn,

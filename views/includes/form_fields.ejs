@@ -1,91 +1,135 @@
-<main class="new_article_form">
+<main class="signup_form">
   <% if (errorMessage) { %>
   <div class="user-message user-message--error errors"><%= errorMessage %></div>
   <% } %>
-  
-    <form
-      action="/articles/<% if (editing) { %>edit<% } else { %>new<% } %>"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <div class="form-control form_article">
-        <label class="new_article_label" for="title">Title</label>
-        <input
-          class="new_article_input <%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %> form-control"
-          type="text"
-          name="title"
-          id="title"
-          value="<% if (editing || hasError) { %><%= article.title %><% } %>"
-        />
-      </div>
 
-      <div class="multiple_select form_article form-control">
-        <input type="checkbox" class="toggle new_article_input" id="toggle" checked />
-        <label class="new_article_label" for="toggle" class="toggle_label">
-          Category <span class="v">v</span>
-        </label>
+  <form
+    action="/articles/<% if (editing) { %>edit<% } else { %>new<% } %>"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div class="form-control form_article">
+      <label class="new_article_label" for="title">Title</label>
+      <input
+        class="new_article_input <%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %> form-control"
+        type="text"
+        name="title"
+        id="title"
+        value="<% if (editing || hasError) { %><%= article.title %><% } %>"
+      />
+    </div>
 
-        <div class="select form_article">
-          <% if(categories != '') { %>
-           <% categories.forEach(function (category,
-          index) { %>
-          <div class="option">
-            <input type="checkbox" class="category " id="category"  name="category" value="<%= category.name %> "/>
-            <label class="new_article_category_name" for="category"><%= category.name %></label>
-            <input name="category_hidden" type="hidden" value="">
-          </div>
-          <% }) %> <% } else { %>
-          <input class="new_article_input" type="checkbox" class="toggle" id="toggle" checked />
-          <label class="new_article_label" for="toggle" class="toggle_label"> Must add Category</label>
-          <a href="/categories/new" class="btn btn-secondary">Add category</a>
-          <% } %>
+    <div class="multiple_select form_article form-control">
+      <input
+        type="checkbox"
+        class="toggle new_article_input"
+        id="toggle"
+        checked
+      />
+      <label class="new_article_label" for="toggle" class="toggle_label">
+        Category <span class="v">v</span>
+      </label>
+
+      <div class="select form_article">
+        
+        <% if( categories != '') { %> 
+        <% categories.forEach(category => { %>
+        <div class="option">
+      
+          <% if( editing && articleCategoriesArray.includes(categoriesArray[index]))  { %>
+           
+          <input
+            type="checkbox"
+            class="category"
+            id="category"
+            name="category"
+            value="<%= category.name %>"
+            checked
+
+            
+          />
+          <label class="new_article_category_name" for="category"
+          ><%= category.name %></label>
+          <input name="category_hidden" type="hidden" value="">
+          
+          <% } else { %>
+            <% if(editing) { %> <% index++ %><% } %>
+              
+            
+          <input
+            type="checkbox"
+            class="category"
+            id="category"
+            name="category"
+            value="<%= category.name %>"
+          />
+          <label class="new_article_category_name" for="category"
+            ><%= category.name %></label>
+          
+          <% }%>
+          
         </div>
+        
+        <% }) %> <% } else { %>
+        <input
+          class="new_article_input"
+          type="checkbox"
+          class="toggle"
+          id="toggle"
+          checked
+        />
+        <label class="new_article_label" for="toggle" class="toggle_label">
+          Must add Category</label>
+        
+        <a href="/categories/new" class="btn btn-secondary">Add category</a>
+        <% } %>
       </div>
+    </div>
 
-      <div class="form-control form_article form_article_image">
-        <label class="new_article_label" for="image">Image</label>
-        <input class="form-control new_article_input" type="file" name="image" id="image" />
-      </div>
+    <div class="form-control form_article form_article_image">
+      <label class="new_article_label" for="image">Image</label>
+      <input
+        class="form-control new_article_input"
+        type="file"
+        name="image"
+        id="image"
+      />
+    </div>
 
-      <div class="form-control form_article">
-        <label class="new_article_label" for="name" class="form-label">Ingredients</label>
-        <div class="ingredientList" id="ingredientList"></div>
-        <div class="form_article"> 
-        <button
-          type="button"
-          class="btn_add_ingredient"
-          id="addIngredientsBtn"
-        >
+    <div class="form-control form_article">
+      <label class="new_article_label" for="ingredients" class="form-label"
+        >Ingredients</label>
+      
+      <div class="ingredientList" id="ingredientList"></div>
+      <div class="form_article">
+       
+
+        <button type="button" class="btn_add_ingredient" id="addIngredientsBtn">
           + Ingredient
         </button>
       </div>
-      </div>
+    </div>
 
-      
+    <div class="form-control form_article">
+      <label class="new_article_label" for="description">Description</label>
+      <textarea
+        class="new_article_textarea <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %> form-control"
+        name="description"
+        id="description"
+        rows="5"
+      >
+<% if (editing || hasError) { %><%= article.description %><% } %></textarea>
+    </div>
 
-      <div class="form-control form_article">
-        <label class="new_article_label" for="description">Description</label>
-        <textarea
-          class="new_article_textarea <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %> form-control"
-          name="description"
-          id="description"
-          rows="5"
-        ><% if (editing || hasError) { %><%= article.description %><% } %></textarea>
-      
-      
-      </div>
+    <% if (editing) { %>
+    <input type="hidden" value="<%= article._id %>" name="articleId" />
+    <% } %>
 
-      <% if (editing) { %>
-      <input type="hidden" value="<%= article._id %>" name="articleId" />
-      <% } %>
-
-      <div class="form_btn_group">
-        <a href="/articles" class="btn_cancel">Cancel</a>
-      <button class="btn_add_article" type="submit">
+    <div class="form_btn_group">
+      <a href="/articles" class="btn_cancel">Cancel</a>
+      <button class="btn_submit btn" type="submit">
         <% if (editing) { %>Update Article<% } else { %>Add Article<% } %>
       </button>
-      </div>
-     
-    </form>
-  
+    </div>
+  </form>
 </main>

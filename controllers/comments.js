@@ -36,7 +36,7 @@ exports.postNewComment = async (req, res, next) => {
   await article.save();
   req.flash("success", "Successfully made a new comment");
   res.redirect(`/articles/${articleId}`);
-  console.log("added new review");
+  console.log("added new comment");
   } catch (err) {
     const error = new Error(err);
           error.httpStatusCode = 500;
