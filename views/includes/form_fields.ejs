@@ -99,6 +99,14 @@
     <div class="form-control form_article">
       <label class="new_article_label" for="ingredients" class="form-label"
         >Ingredients</label>
+
+        <% if(ingredients != '')  {%>
+          <% console.log(ingredients) %>
+          <% ingredients.forEach( ingredient => { %>
+            <input name="ingredients" class="form-control new_article_input" type="text" value="<%= ingredient  %>">
+            <button name="ingredientsButton" class="btn_delete_ingredient" type="button"> Remove</button>
+            <% }) %>
+          <% } %>
       
       <div class="ingredientList" id="ingredientList"></div>
       <div class="form_article">

@@ -106,6 +106,7 @@ exports.getEditArticle = async (req, res, next) => {
     const article = await Article.findById(articleId);
     const categories = await Category.find({});
     const ingredients = article.ingredients ;
+    console.log(ingredients)
     const index = 0;
     const categoriesArray = [];
     const articleCategoriesArray = article.category;
