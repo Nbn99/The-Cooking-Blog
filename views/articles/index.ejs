@@ -24,7 +24,7 @@
               <% if (articles.length > 0) { %>
                 <% for (let article of articles) { %>
                   <div class="article ">
-                    <a href="articles/<%= article._id %>">
+                    <a href="articles/<%= article.slug %>">
                     <img class=" article_img" src="/<%= article.img %>" alt="<%= article.title %>">
                   </a>
                     <div class="article_body">
@@ -40,10 +40,10 @@
                       </div>
 
                       <div class="btn_group">
-                        <a href="articles/<%= article._id %>" class="description_button btn_more">Read More</a>
+                        <a href="articles/<%= article.slug %>" class="description_button btn_more">Read More</a>
                         <% if (isAuthenticated) { %>
-                        <a href="articles/edit/<%= article._id %>" class="description_button btn_edit">Edit</a>
-                        <form action="/articles/<%= article._id %>?_method=DELETE" method="POST" class="d-inline">
+                        <a href="articles/edit/<%= article.slug %>" class="description_button btn_edit">Edit</a>
+                        <form action="/articles/<%= article.slug %>?_method=DELETE" method="POST" class="d-inline">
                           <button type="submit" class="description_button btn_delete">Delete</button>
                         </form>
                         <% } %>

@@ -52,7 +52,10 @@ const usersRouter = require('./routes/users');
 const categoriesRouter = require('./routes/categories');
 const commentsRouter = require('./routes/comments')
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
@@ -93,7 +96,7 @@ app.use((req, res, next) => {
 app.use('/articles', articleRouter);
 app.use('/users', usersRouter);
 app.use('/categories', categoriesRouter);
-app.use('/articles/:id/comments', commentsRouter);
+app.use('/articles/:slug/comments', commentsRouter);
 
 app.use(errorController.get404);
 

@@ -18,9 +18,8 @@ router.post(
   [
     body("email")
       .isEmail()
-      .withMessage("Please enter a valid email address.")
       .normalizeEmail({ gmail_remove_dots: false }),
-    body("password", "Password has to be valid.")
+    body("password" )
       .isLength({ min: 5 })
       .isAlphanumeric()
       .trim(),
@@ -33,7 +32,6 @@ router.post(
   [
     check("email")
       .isEmail()
-      .withMessage("Please enter a valid email.")
       .custom((value, { req }) => {
         return User.findOne({ email: value }).then((userDoc) => {
           if (userDoc) {
@@ -46,7 +44,7 @@ router.post(
       .normalizeEmail({ gmail_remove_dots: false }),
     body(
       "password",
-      "Please enter a password with only numbers and text and at least 5 characters."
+      
     )
       .isLength({ min: 5 })
       .isAlphanumeric()

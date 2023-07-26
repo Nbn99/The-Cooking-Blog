@@ -7,6 +7,8 @@
     action="/articles/<% if (editing) { %>edit<% } else { %>new<% } %>"
     method="POST"
     enctype="multipart/form-data"
+    name="myForm"
+    onsubmit="return validateForm()"
   >
     <div class="form-control form_article">
       <label class="new_article_label" for="title">Title</label>
@@ -31,13 +33,11 @@
       </label>
 
       <div class="select form_article">
-        
-        <% if( categories != '') { %> 
-        <% categories.forEach(category => { %>
+        <% if( categories != '') { %> <% categories.forEach(category => { %>
         <div class="option">
-      
-          <% if( editing && articleCategoriesArray.includes(categoriesArray[index]))  { %>
-           
+          <% if( editing &&
+          articleCategoriesArray.includes(categoriesArray[index])) { %>
+
           <input
             type="checkbox"
             class="category"
@@ -45,17 +45,13 @@
             name="category"
             value="<%= category.name %>"
             checked
-
-            
           />
           <label class="new_article_category_name" for="category"
-          ><%= category.name %></label>
-          <input name="category_hidden" type="hidden" value="">
-          
-          <% } else { %>
-            <% if(editing) { %> <% index++ %><% } %>
-              
-            
+            ><%= category.name %></label>
+          <input name="category_hidden" type="hidden" value="" />
+
+          <% } else { %> <% if(editing) { %> <% index++ %><% } %>
+
           <input
             type="checkbox"
             class="category"
@@ -65,11 +61,10 @@
           />
           <label class="new_article_category_name" for="category"
             ><%= category.name %></label>
-          
+
           <% }%>
-          
         </div>
-        
+
         <% }) %> <% } else { %>
         <input
           class="new_article_input"
@@ -80,7 +75,7 @@
         />
         <label class="new_article_label" for="toggle" class="toggle_label">
           Must add Category</label>
-        
+
         <a href="/categories/new" class="btn btn-secondary">Add category</a>
         <% } %>
       </div>
@@ -100,19 +95,51 @@
       <label class="new_article_label" for="ingredients" class="form-label"
         >Ingredients</label>
 
-        <% if(ingredients != '')  {%>
-          <% console.log(ingredients) %>
-          <% ingredients.forEach( ingredient => { %>
-            <input name="ingredients" class="form-control new_article_input" type="text" value="<%= ingredient  %>">
-            <button name="ingredientsButton" class="btn_delete_ingredient" type="button"> Remove</button>
-            <% }) %>
-          <% } %>
-      
-      <div class="ingredientList" id="ingredientList"></div>
-      <div class="form_article">
-       
+      <div class="ingredientList" id="ingredientList">
+        <% if(editing && article.ingredients != '') {%> <% for(let ingredient of
+        article.ingredients) { %>
+        <div class="newInputDiv">
+          <input
+            name="ingredients"
+            class="form-control new_article_input"
+            type="text"
+            value="<%= ingredient %>"
+          />
+          <button
+            onclick="this.parentElement.remove()"
+            name="ingredientsButton"
+            class="btn_delete_ingredient"
+            type="button"
+          >
+            Remove
+          </button>
+        </div>
 
-        <button type="button" class="btn_add_ingredient" id="addIngredientsBtn">
+        <% } %> <% } %> <% if(!editing) { %>
+        <div class="newInputDiv">
+          <input
+            type="text"
+            name="ingredients"
+            class="form-control new_article_input"
+          />
+          <button
+            onclick="this.parentElement.remove()"
+            class="btn_delete_ingredient"
+            name="ingredientsButton"
+            type="button"
+          >
+            Remove
+          </button>
+        </div>
+      <% } %>
+      </div>
+      <div class="form_article">
+        <button
+          type="button"
+          class="btn_add_ingredient"
+          id="addIngredientsBtn"
+          onclick="addInput()"
+        >
           + Ingredient
         </button>
       </div>
@@ -126,7 +153,8 @@
         id="description"
         rows="5"
       >
-<% if (editing || hasError) { %><%= article.description %><% } %></textarea>
+<% if (editing || hasError) { %><%= article.description %><% } %></textarea
+      >
     </div>
 
     <% if (editing) { %>

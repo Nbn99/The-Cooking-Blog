@@ -33,19 +33,17 @@ exports.getNewArticle = async (req, res, next) => {
 exports.postNewArticle = async (req, res, next) => {
   try {
     const categories = await Category.find({});
-
     const title = req.body.title;
     const createdAt = req.body.createdAt;
     const category = req.body.category;
-    console.log(req.body.category)
     const image = req.file;
     const ingredients = req.body.ingredients;
     const description = req.body.description;
-
+     
     if (!image) {
       return res.status(422).render("articles/new", {
         path: "/articles/new",
-        editing: false,
+        editing: true,
         hasError: true,
         article: {
           title: title,
@@ -65,17 +63,19 @@ exports.postNewArticle = async (req, res, next) => {
       console.log(errors.array());
       return res.status(422).render("articles/new", {
         path: "/articles/new",
-        editing: false,
+        editing: true,
         hasError: true,
         article: {
           title: title,
           description: description,
           category: category,
           ingredients: ingredients,
+          
         },
         errorMessage: errors.array()[0].msg,
         validationErrors: errors.array(),
         categories,
+        
       });
     }
     const img = image.path;
@@ -89,6 +89,7 @@ exports.postNewArticle = async (req, res, next) => {
       description: description,
       userId: req.user._id,
     });
+
     await article.save();
     req.flash("success", "Successfully made a new article");
     res.redirect("/articles");
@@ -102,14 +103,14 @@ exports.postNewArticle = async (req, res, next) => {
 
 exports.getEditArticle = async (req, res, next) => {
   try {
-    const articleId = req.params.id;
-    const article = await Article.findById(articleId);
+    const articleArr = await Article.find({slug: req.params.slug});
+    const article = articleArr[0];
     const categories = await Category.find({});
-    const ingredients = article.ingredients ;
-    console.log(ingredients)
+    const ingredientsArray = article.ingredients;
     const index = 0;
     const categoriesArray = [];
     const articleCategoriesArray = article.category;
+    console.log(req.user._id)
     
     for(let i=0; i<categories.length; i++){
       categoriesArray.push(categories[i].name)
@@ -129,7 +130,7 @@ exports.getEditArticle = async (req, res, next) => {
       errorMessage: null,
       validationErrors: [],
       categories,
-      ingredients,
+      ingredientsArray,
       index,
       categoriesArray,
       articleCategoriesArray
@@ -145,7 +146,6 @@ exports.getEditArticle = async (req, res, next) => {
 exports.postEditArticle = async (req, res, next) => {
   try {
     const categories = await Category.find({});
-    console.log(categories)
     const artId = req.body.articleId;
     const updatedTitle = req.body.title;
     const createdAt = req.body.createdAt;
@@ -226,20 +226,22 @@ exports.getAllArticles = async (req, res, next) => {
 };
 
 exports.getArticle = async (req, res, next) => {
-  const artId = req.params.id;
   try {
-    const article = await Article.findById(artId)
+    
+    const articleArr = await Article.find({slug: req.params.slug})
       .populate( 'userId')
       .populate('comments')
-    if (article == null) {
+      const article = articleArr[0];
+      if (article == null) {
       res.redirect("/articles");
-    } else {
-         
+       } else {
+        console.log(article[0])
       res.render("articles/show", {
-        article: article,
+        article,
         pageTitle: article.title,
         path: "/articles",
       });
+      
     }
   } catch (err) {
     error = new Error(err);
@@ -249,13 +251,14 @@ exports.getArticle = async (req, res, next) => {
 };
 exports.deleteArticle = async (req, res, next) => {
   try {
-    const artId = req.params.id;
-    const article = await Article.findById(artId);
+    const artId = req.params.slug;
+    const articleArr = await Article.find({slug: artId});
+    const article = articleArr[0]
     if (!article) {
       return next(new Error("Article not found."));
     }
     fileHelper.deleteFile(article.img);
-    await Article.deleteOne({ _id: artId, userId: req.user._id });
+    await Article.deleteOne({ slug: artId, userId: req.user._id });
     console.log("DESTROYED article");
     res.redirect("/articles");
   } catch (err) {

@@ -1,46 +1,51 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const categoriesController = require('../controllers/categories');
-const { body } = require('express-validator');
-const { isLoggedIn } = require('../middlewares/is-auth')
+const categoriesController = require("../controllers/categories");
+const { body } = require("express-validator");
+const { isLoggedIn } = require("../middlewares/is-auth");
 
+router.get("/", categoriesController.getCategories);
 
-router.get('/', categoriesController.getCategories);
+router.get("/new", categoriesController.getNewCategory);
 
-router.get('/new', categoriesController.getNewCategory);
+router.get("/:slug", categoriesController.getCategoriesById);
 
-router.get('/:id', categoriesController.getCategoriesById);
+router.get("/edit/:slug", categoriesController.getEditCategory);
 
-router.get('/edit/:id', categoriesController.getEditCategory);
+router.post(
+  "/new",
+  [
+    body("name")
+      .isString()
+      .isLength({ min: 3 })
+      .trim(),
+    body(
+      "description"
+    )
+      .isLength({ min: 5, max: 1500 })
+      .trim(),
+  ],
+  isLoggedIn,
+  categoriesController.postNewCategory
+);
 
-router.post('/new',
-    [
-        body('name')
-            .isString()
-            .isLength({ min: 3 })
-            .trim(),
-        body('description')
-            .isLength({ min: 5, max: 1500 })
-            .trim()
-    ],
-    isLoggedIn,
-    categoriesController.postNewCategory);
+router.post(
+  "/edit",
+  [
+    body("name")
+      .isString()
+      .isLength({ min: 3 })
+      .trim(),
+    body(
+      "description"
+    )
+      .isLength({ min: 5, max: 1500 })
+      .trim(),
+  ],
+  isLoggedIn,
+  categoriesController.postEditCategory
+);
 
-router.post('/edit',
-    [
-        body('name')
-            .isString()
-            .isLength({ min: 3 })
-            .trim(),
-        body('description')
-            .isLength({ min: 5, max: 1500 })
-            .trim()
-    ],
-    isLoggedIn,
-    categoriesController.postEditCategory);
-
-router.delete('/:id', categoriesController.deleteCategory);
-
-
+router.delete("/:slug", categoriesController.deleteCategory);
 
 module.exports = router;

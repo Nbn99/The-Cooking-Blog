@@ -1,10 +1,12 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/forms.css">
+<script src="/js/validLogin.js"></script>
+
   </head>
 
   <body>
     <%- include('../includes/navigation.ejs') %>
-      <div class="container"> 
+      <div class="container myForm"> 
         <div class="signup_container_center">
           <div class="signup_container">
               <div>
@@ -16,7 +18,7 @@
                     <%= errorMessage %>
                   </div>
                   <% } %>
-                    <form class="login-form" action="/users/login" method="POST">
+                    <form class="login-form" action="/users/login" method="POST" name="myForm" onsubmit="return validateForm()">
                       <div class="form-control">
                         <label class="signup_label" for="email">E-Mail</label>
                         <input 
@@ -44,7 +46,6 @@
                           <a href="/users/reset-password" class="btn_reset_password ">Reset Password</a>
                         </div>
                     
-                      
                </main>
           </div>
         </div>

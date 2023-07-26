@@ -1,32 +1,29 @@
 let addIngredientsBtn = document.getElementById("addIngredientsBtn");
 let ingredientList = document.querySelector(".ingredientList");
-let ingredientDiv = document.querySelector(".ingredientDiv");
-let index = 1;
 
-addIngredientsBtn.addEventListener("click", function () {
-  index++;
+function removeInput(){
+  this.parentElement.remove()
+}
+
+ function addInput() {
   let newIngredients = document.createElement("input");
-  let newButton = document.createElement("button");
-  newIngredients.className = "form-control new_article_input";
-  newIngredients.id = `ingredient_${index}`;
-  newIngredients.type = "text";
+ 
   newIngredients.name = "ingredients";
+  newIngredients.className = "form-control new_article_input";
+  newIngredients.type = "text";
+
+  let newButton = document.createElement("button");
   newButton.className = "btn_delete_ingredient";
   newButton.name = "ingredientsButton";
   newButton.type = "button";
-  newButton.id = `remove_${index}`;
   newButton.textContent = "Remove";
-  ingredientList.appendChild(newIngredients);
-  ingredientList.appendChild(newButton);
-});
+  newButton.addEventListener("click", removeInput)
 
-const elements = document.getElementsByName("ingredients");
-
-const buttonElements = document.getElementsByName("ingredientsButton");
-
-for (let element of elements) {
-  buttonElement.addEventListener("click", (event) => {
-  event.target.remove();
-  });
-}
+  let newDiv = document.createElement("div")
+  newDiv.className = "newInputDiv"
+  
+  ingredientList.appendChild(newDiv);
+  newDiv.appendChild(newIngredients);
+  newDiv.appendChild(newButton);
+};
 

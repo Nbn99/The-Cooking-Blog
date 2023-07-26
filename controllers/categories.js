@@ -20,13 +20,14 @@ exports.getCategories = async (req, res, next) => {
 
 exports.getCategoriesById = async (req, res, next) => {
   try {
-    const categoryId = req.params.id;
+    const categoryId = req.params.slug;
     const limitNumber = 20;
-    const category = await Category.findOne({ name: categoryId });
-    
+    const categoryArr= await Category.find({slug: categoryId} )
+    const category = categoryArr[0]
     // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
     //   limitNumber
     // );
+    console.log(category)
 
     const articles = await Article.aggregate().search({
       text: {
@@ -115,8 +116,10 @@ exports.postNewCategory = async (req, res, next) => {
 
 exports.getEditCategory = async (req, res, next) => {
   try {
-    const categoryId = req.params.id;
-    const category = await Category.findById(categoryId)
+    const categoryId = req.params.slug;
+    const categoryArr= await Category.find({slug: categoryId} )
+    const category = categoryArr[0]
+
     if (category.userId.toString() !== req.user._id.toString()) {
       return res.redirect("/categories");
     } 
@@ -140,7 +143,7 @@ exports.getEditCategory = async (req, res, next) => {
 
 exports.postEditCategory =async (req, res, next) => {
   try {
-    const catId = req.body.categoryId;
+  const catId = req.body.categoryId;
   const updatedName = req.body.name;
   const image = req.file;
   const updatedDescription = req.body.description;
@@ -154,9 +157,9 @@ exports.postEditCategory =async (req, res, next) => {
       path: "/categories/edit",
       editing: true,
       hasError: true,
-      article: {
+      category: {
         name: updatedName,
-        img: updatedImg,
+        img: image,
         description: updatedDescription,
         _id: catId,
       },
@@ -164,7 +167,8 @@ exports.postEditCategory =async (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
-  const category = await Category.findById(catId)
+  const categoryArr = await Category.find({slug: req.params.slug});
+  const category = categoryArr[0];
   if (category.userId.toString() !== req.user._id.toString()) {
     return res.redirect("/");
   }
@@ -188,13 +192,14 @@ exports.postEditCategory =async (req, res, next) => {
 
 exports.deleteCategory = async (req, res, next) => {
   try {
-    const catId = req.params.id;
-    const category = await Category.findById(catId)
+    const catId = req.params.slug;
+    const categoryArr = await Article.find({slug: artId});
+    const category = categoryArr[0]
     if (!category) {
       return next(new Error("Category not found."));
     }
     fileHelper.deleteFile(category.img);
-    await Category.deleteOne({ _id: catId, userId: req.user._id });
+    await Category.deleteOne({ slug: catId, userId: req.user._id });
     console.log("DESTROYED category");
     res.redirect("/categories");
   } catch (err) {

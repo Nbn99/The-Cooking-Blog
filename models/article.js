@@ -7,6 +7,7 @@ const articleSchema = new Schema({
   title: {
     type: String,
     require: true,
+    unique: true
   },
   description: {
     type: String,
@@ -17,17 +18,17 @@ const articleSchema = new Schema({
     require: true,
   },
   category:
-    {
-      type: Array,
+    [{
+      type: String,
       require: true,
       ref: "Category",
-    }
+    }]
   ,
   ingredients: 
-    {
-      type: Array,
-      required: true
-    }
+    [{
+      type: String,
+      required: true,
+    }]
   ,
   createdAt: {
     type: Date,
@@ -54,7 +55,7 @@ const articleSchema = new Schema({
 
 articleSchema.pre("validate", function (next) {
   if (this.title) {
-    this.slug = slugify(this.title, { lower: true, strict: true });
+    this.slug = slugify(this.title, { lower: true, strict: true, replacement: "-" });
   }
   next();
 });
