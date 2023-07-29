@@ -79,7 +79,7 @@ exports.postLogin = async (req, res, next) => {
       req.session.user = user;
 
       await req.session.save()
-        req.flash("info", "You've logged in successfully ");
+        req.flash("info", "You've logged in successfully ");  
         res.redirect("/articles");
       } else {
       req.flash("error", "Invalid email or password.");

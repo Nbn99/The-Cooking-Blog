@@ -103,8 +103,7 @@ exports.postNewArticle = async (req, res, next) => {
 
 exports.getEditArticle = async (req, res, next) => {
   try {
-    const articleArr = await Article.find({slug: req.params.slug});
-    const article = articleArr[0];
+    const article = await Article.findOne({slug: req.params.slug});
     const categories = await Category.find({});
     const ingredientsArray = article.ingredients;
     const index = 0;
@@ -228,10 +227,9 @@ exports.getAllArticles = async (req, res, next) => {
 exports.getArticle = async (req, res, next) => {
   try {
     
-    const articleArr = await Article.find({slug: req.params.slug})
+    const article = await Article.findOne({slug: req.params.slug})
       .populate( 'userId')
       .populate('comments')
-      const article = articleArr[0];
       if (article == null) {
       res.redirect("/articles");
        } else {
@@ -252,12 +250,18 @@ exports.getArticle = async (req, res, next) => {
 exports.deleteArticle = async (req, res, next) => {
   try {
     const artId = req.params.slug;
-    const articleArr = await Article.find({slug: artId});
-    const article = articleArr[0]
+    const article = await Article.findOne({slug: artId});
+
+    for(comment of article.comments){
+      const commentId = comment._id;
+      await Comment.findByIdAndDelete(commentId)
+    }
+
     if (!article) {
       return next(new Error("Article not found."));
     }
     fileHelper.deleteFile(article.img);
+    
     await Article.deleteOne({ slug: artId, userId: req.user._id });
     console.log("DESTROYED article");
     res.redirect("/articles");

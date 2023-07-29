@@ -4,6 +4,7 @@ const articleController = require("../controllers/article");
 const { body } = require("express-validator");
 const { isLoggedIn } = require("../middlewares/is-auth");
 
+
 const router = express.Router();
 
 router.get("/", articleController.getAllArticles);
@@ -50,7 +51,7 @@ router.post(
     //   .isLength({ min: 3 })
     //   .trim(),
   ],
-  isLoggedIn,
+  isLoggedIn, 
   articleController.postEditArticle
 );
 router.post("/search", articleController.searchArticle);

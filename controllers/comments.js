@@ -5,9 +5,8 @@ const { validationResult } = require("express-validator");
 
 exports.postNewComment = async (req, res, next) => {
   try {
-    const articleId = req.params.id;
-
-  const article = await Article.findById(articleId);
+    const articleId = req.params.slug
+    const article = await Article.findOne({slug: articleId})
   const description = req.body.description;
 
   const comment = new Comment({
@@ -34,6 +33,7 @@ exports.postNewComment = async (req, res, next) => {
 
   await comment.save();
   await article.save();
+ 
   req.flash("success", "Successfully made a new comment");
   res.redirect(`/articles/${articleId}`);
   console.log("added new comment");
@@ -45,8 +45,8 @@ exports.postNewComment = async (req, res, next) => {
 };
 
 exports.deleteComment = async  (req, res, next) => {
-  const { id, commentId } = req.params;
-  await Article.findByIdAndUpdate(id, { $pull: { comments: commentId } });
+  const { slug, commentId } = req.params;
+  await Article.findByIdAndUpdate(slug, { $pull: { comments: commentId } });
   await Comment.findByIdAndDelete(commentId);
   req.flash('success', 'Successfully deleted comment')
   res.redirect(`/articles/${id}`);

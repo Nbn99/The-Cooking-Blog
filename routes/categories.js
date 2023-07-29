@@ -25,7 +25,7 @@ router.post(
       .isLength({ min: 5, max: 1500 })
       .trim(),
   ],
-  isLoggedIn,
+  isLoggedIn, 
   categoriesController.postNewCategory
 );
 
@@ -42,7 +42,7 @@ router.post(
       .isLength({ min: 5, max: 1500 })
       .trim(),
   ],
-  isLoggedIn,
+  isLoggedIn, 
   categoriesController.postEditCategory
 );
 

@@ -22,8 +22,7 @@ exports.getCategoriesById = async (req, res, next) => {
   try {
     const categoryId = req.params.slug;
     const limitNumber = 20;
-    const categoryArr= await Category.find({slug: categoryId} )
-    const category = categoryArr[0]
+    const category = await Category.findOne({slug: categoryId} )
     // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
     //   limitNumber
     // );
@@ -167,8 +166,7 @@ exports.postEditCategory =async (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
-  const categoryArr = await Category.find({slug: req.params.slug});
-  const category = categoryArr[0];
+  const category = await Category.findOne({slug: req.params.slug});
   if (category.userId.toString() !== req.user._id.toString()) {
     return res.redirect("/");
   }
@@ -193,8 +191,7 @@ exports.postEditCategory =async (req, res, next) => {
 exports.deleteCategory = async (req, res, next) => {
   try {
     const catId = req.params.slug;
-    const categoryArr = await Article.find({slug: artId});
-    const category = categoryArr[0]
+    const category = await Article.findOne({slug: artId});
     if (!category) {
       return next(new Error("Category not found."));
     }

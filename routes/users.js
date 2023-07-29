@@ -58,6 +58,7 @@ router.post(
         return true;
       }),
   ],
+  
   usersController.postSignup
 );
 
@@ -74,7 +75,7 @@ router.post("/new-password",
     .isLength({ min: 5 })
     .isAlphanumeric()
     .trim(),
-],
+], 
  usersController.postNewPassword);
 
 module.exports = router;

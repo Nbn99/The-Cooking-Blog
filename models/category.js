@@ -30,7 +30,7 @@ const categorySchema = new Schema({
 
 categorySchema.pre("validate", function (next) {
   if (this.name) {
-    this.slug = slugify(this.name, { lower: true, strict: true });
+    this.slug = slugify(this.name, { lower: true, strict: true,  replacement: "-"  });
   }
   next();
 });
