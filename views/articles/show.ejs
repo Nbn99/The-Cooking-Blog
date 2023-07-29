@@ -73,7 +73,7 @@
             <div class="recipe_comment_display">
                 <div class="recipe_comment_display_body">
                     <h5 >User name: </h5>
-                    <p class="recipe_comment_display_user"><%= comments.userId %></p>
+                    <p class="recipe_comment_display_user"><%= comment.userId.email %></p>
                     <p class="recipe_comment_display_text"><%= comment.description%></p>
                 </div>
                 <%  if(comment.userId.equals(currentUser))  {%>

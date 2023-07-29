@@ -257,15 +257,17 @@ exports.getArticle = async (req, res, next) => {
       const currentUser = "";
       const article = await Article.findOne({slug: req.params.slug})
       .populate( 'userId')
-      .populate('comments')
-    const comments = await Comment.find({userId: req.user_id})
-    .populate('userId')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId'
+        }
+      })
       if (article == null) {
       res.redirect("/articles");
        } else {
       res.render("articles/show", {
         article,
-        comments,
         currentUser,
         pageTitle: article.title,
         path: "/articles",
@@ -275,16 +277,18 @@ exports.getArticle = async (req, res, next) => {
       const currentUser = req.user._id;
 
       const article = await Article.findOne({slug: req.params.slug})
-        .populate( 'userId')
-        .populate('comments')
-      const comments = await Comment.find({userId: req.user_id})
-      .populate('userId')
+      .populate( 'userId')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId'
+        }
+      })
         if (article == null) {
         res.redirect("/articles");
          } else {
         res.render("articles/show", {
           article,
-          comments,
           currentUser,
           pageTitle: article.title,
           path: "/articles",
