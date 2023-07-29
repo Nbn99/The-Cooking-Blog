@@ -1,11 +1,13 @@
-let addIngredientsBtn = document.getElementById("addIngredientsBtn");
-let ingredientList = document.querySelector(".ingredientList");
+
 
 function removeInput(){
   this.parentElement.remove()
 }
 
  function addInput() {
+
+  let ingredientList = document.getElementById("ingredientList");
+
   let newIngredients = document.createElement("input");
  
   newIngredients.name = "ingredients";

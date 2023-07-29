@@ -20,26 +20,52 @@ exports.getCategories = async (req, res, next) => {
 
 exports.getCategoriesById = async (req, res, next) => {
   try {
-    const categoryId = req.params.slug;
-    const limitNumber = 20;
-    const category = await Category.findOne({slug: categoryId} )
-    // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
-    //   limitNumber
-    // );
-    console.log(category)
-
-    const articles = await Article.aggregate().search({
-      text: {
-        query: categoryId,
-        path: "category"
-      }
-    }).limit(limitNumber)
-
-    await res.render("categories/one", {
-      title: "Cooking Blog - Categories",
-      category,  
-      articles,
-    });    
+    if(!req.user){
+      const currentUser = "";
+      const categoryId = req.params.slug;
+      const limitNumber = 20;
+      const category = await Category.findOne({slug: categoryId} )
+      // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
+      //   limitNumber
+      // );
+  
+      const articles = await Article.aggregate().search({
+        text: {
+          query: categoryId,
+          path: "category"
+        }
+      }).limit(limitNumber)
+  
+      await res.render("categories/one", {
+        title: "Cooking Blog - Categories",
+        category,  
+        articles,
+        currentUser
+      });
+    } else{
+      const currentUser = req.user._id
+      const categoryId = req.params.slug;
+      const limitNumber = 20;
+      const category = await Category.findOne({slug: categoryId} )
+      // const articles = await Article.find({ category: {$in: [categoryId]} }).limit(
+      //   limitNumber
+      // );
+  
+      const articles = await Article.aggregate().search({
+        text: {
+          query: categoryId,
+          path: "category"
+        }
+      }).limit(limitNumber)
+  
+      await res.render("categories/one", {
+        title: "Cooking Blog - Categories",
+        category,  
+        articles,
+        currentUser
+      });    
+      
+    }
     
   } catch (err) {
     const error = new Error(err);

@@ -41,7 +41,7 @@
 
                       <div class="btn_group">
                         <a href="articles/<%= article.slug %>" class="description_button btn_more">Read More</a>
-                        <% if (isAuthenticated) { %>
+                        <% if (article.userId.equals(currentUser)) { %>
                         <a href="articles/edit/<%= article.slug %>" class="description_button btn_edit">Edit</a>
                         <form action="/articles/<%= article.slug %>?_method=DELETE" method="POST" class="d-inline">
                           <button type="submit" class="description_button btn_delete">Delete</button>

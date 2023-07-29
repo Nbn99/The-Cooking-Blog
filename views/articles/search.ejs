@@ -12,11 +12,11 @@
                 <div class="all_category_div">
                     <% if(article !='' ) { %>
                         <% article.forEach(function(article, index){ %>
-                            <a href="/articles/<%= article._id %>" class="all_category_link">
+                            <a href="/articles/<%= article.slug %>" class="all_category_link">
                                 <div class="all_category_img">
                                     <img class="all_category_image" src="/<%= article.img %>" alt="<%= article.title %>">
                                   </div>
-                                  <div class="article_title">
+                                  <div class="article_title all_category_name">
                                     <%= article.title %>
                                 </div>
                             </a>

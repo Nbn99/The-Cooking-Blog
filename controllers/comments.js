@@ -49,5 +49,5 @@ exports.deleteComment = async  (req, res, next) => {
   await Article.findByIdAndUpdate(slug, { $pull: { comments: commentId } });
   await Comment.findByIdAndDelete(commentId);
   req.flash('success', 'Successfully deleted comment')
-  res.redirect(`/articles/${id}`);
+  res.redirect(`/articles/${slug}`);
 };

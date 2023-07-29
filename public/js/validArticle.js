@@ -24,7 +24,7 @@ function validateForm() {
     }
   
     let category = document.querySelector('.category').checked
-    if(!category){
+    if(category = ""){
       toastr["error"]("Category must be filled out ", "Validation error")
       return false;
     }

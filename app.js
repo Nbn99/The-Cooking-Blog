@@ -83,6 +83,12 @@ app.use(sessionConfig);
 app.use(cookieParser());
 
 app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  // res.locals.hasPermission = req.session.isAuthor;
+  next();
+});
+
+app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
   }
@@ -94,10 +100,7 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-  next();
-});
+
 
 app.use('/articles', articleRouter);
 app.use('/users', usersRouter);

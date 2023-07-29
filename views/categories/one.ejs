@@ -16,7 +16,7 @@
                                 <div class="one_category_image_div">
                                      <img class="all_category_image" src="/<%= category.img %>" alt="<%= category.name %>" loading="lazy">
                                 </div>
-                                <% if (isAuthenticated) { %>
+                                <% if (category.userId.equals(currentUser)) { %>
                                 <div class="one_category_buttons">
                                     <a href="/categories/edit/<%= category.slug %>" class=" description_button btn_edit"> Edit</a>
                                     <form action="/categories/<%= category.slug %>?_method=DELETE" method="POST" class="d-inline">

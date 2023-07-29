@@ -198,6 +198,8 @@ exports.postEditArticle = async (req, res, next) => {
 
 exports.getAllArticles = async (req, res, next) => {
   try {
+    if(!req.user){
+    const currentUser = "";
     const categories = await Category.find({});
     const page = +req.query.page || 1;
     let totalArticles;
@@ -209,6 +211,7 @@ exports.getAllArticles = async (req, res, next) => {
     res.render("articles/index", {
       categories: categories,
       articles: articles,
+      currentUser,
       path: "/articles",
       currentPage: page,
       hasNextPage: ITEMS_PER_PAGE * page < totalArticles,
@@ -217,6 +220,30 @@ exports.getAllArticles = async (req, res, next) => {
       previousPage: page - 1,
       lastPage: Math.ceil(totalArticles / ITEMS_PER_PAGE),
     });
+    }else {
+      const currentUser = req.user._id
+      const categories = await Category.find({});
+      const page = +req.query.page || 1;
+      let totalArticles;
+      const numArticles = await Article.find().countDocuments();
+      totalArticles = numArticles;
+      const articles = await Article.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+      res.render("articles/index", {
+        categories: categories,
+        articles: articles,
+        currentUser,
+        path: "/articles",
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalArticles,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalArticles / ITEMS_PER_PAGE),
+      });
+    }
+    
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
@@ -226,21 +253,45 @@ exports.getAllArticles = async (req, res, next) => {
 
 exports.getArticle = async (req, res, next) => {
   try {
-    
-    const article = await Article.findOne({slug: req.params.slug})
+    if(!req.user){
+      const currentUser = "";
+      const article = await Article.findOne({slug: req.params.slug})
       .populate( 'userId')
       .populate('comments')
+    const comments = await Comment.find({userId: req.user_id})
+    .populate('userId')
       if (article == null) {
       res.redirect("/articles");
        } else {
-        console.log(article[0])
       res.render("articles/show", {
         article,
+        comments,
+        currentUser,
         pageTitle: article.title,
         path: "/articles",
       });
-      
     }
+    } else {
+      const currentUser = req.user._id;
+
+      const article = await Article.findOne({slug: req.params.slug})
+        .populate( 'userId')
+        .populate('comments')
+      const comments = await Comment.find({userId: req.user_id})
+      .populate('userId')
+        if (article == null) {
+        res.redirect("/articles");
+         } else {
+        res.render("articles/show", {
+          article,
+          comments,
+          currentUser,
+          pageTitle: article.title,
+          path: "/articles",
+        });
+      }
+    }
+    
   } catch (err) {
     error = new Error(err);
     error.httpStatusCode = 500;
@@ -314,10 +365,9 @@ exports.searchRandom = async (req, res, next) => {
 
 exports.getIngredientsPdf = async (req, res, next) => {
   try {
-    const articleId = req.params.articleId;
-    const article = await Article.findById(articleId);
+    const article = await Article.findOne({articleId: req.params.slug});
     if (!article) {
-      return next(new Error("No order found."));
+      return next(new Error("No Article found."));
     }
     const ingredientsPdfName = "ingredient-list-" + article.title + ".pdf";
     const ingredientsPdfPath = path.join(

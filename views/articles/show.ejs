@@ -73,10 +73,10 @@
             <div class="recipe_comment_display">
                 <div class="recipe_comment_display_body">
                     <h5 >User name: </h5>
-                    <p class="recipe_comment_display_user"><%= comment.userId %></p>
+                    <p class="recipe_comment_display_user"><%= comments.userId %></p>
                     <p class="recipe_comment_display_text"><%= comment.description%></p>
                 </div>
-                <%  if( isAuthenticated )  {%>
+                <%  if(comment.userId.equals(currentUser))  {%>
                   <form action="/articles/<%=article.slug%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
                       <button class="description_button btn_delete">Delete</button>
                   </form>
@@ -88,7 +88,7 @@
       
         <div class="recipe_btn_group">
           <a href="/articles" class="recipe_description_button btn_all_articles"> All articles</a>
-          <% if (isAuthenticated) { %>
+          <% if (article.userId.equals(currentUser)) { %>
           <a href="/articles/edit/<%= article.slug %>" class="recipe_description_button btn_edit"> Edit</a>
           <form action="/articles/<%= article.slug %>?_method=DELETE" method="POST" class="d-inline">
             <button type="submit" class=" recipe_description_button btn_danegr">Delete</button>

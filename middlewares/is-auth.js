@@ -1,5 +1,6 @@
 const Article = require('../models/article')
 const Users = require('../models/users')
+const Comment = require('../models/comment')
 
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -8,6 +9,26 @@ module.exports.isLoggedIn = (req, res, next) => {
     }
     next();
 };
+
+module.exports.isArticleAuthor = async(req, res, next) => {
+    const { slug } = req.params;
+    const article = await Article.findOne({slug: slug});
+    if (!article.userId.equals(req.user._id)){
+        return res.redirect(`/articles/${slug}`);
+    }
+    next();
+}
+
+module.exports.isCategoryAuthor = async(req, res, next) => {
+    const { slug } = req.params;
+    const category = await Category.findOne({slug: slug});
+    if (!category.userId.equals(req.user._id)){
+        return res.redirect(`/category/${slug}`);
+    }
+    next();
+}
+
+
 
 // module.exports.isAuthor = async(req, res, next) => {
 //     const { id } = req.params;

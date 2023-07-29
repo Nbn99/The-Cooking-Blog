@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const articleController = require("../controllers/article");
 const { body } = require("express-validator");
-const { isLoggedIn } = require("../middlewares/is-auth");
+const { isLoggedIn, isArticleAuthor } = require("../middlewares/is-auth");
 
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.get("/new", isLoggedIn, articleController.getNewArticle);
 
 router.get("/random", articleController.searchRandom);
 
-router.get("/edit/:slug", isLoggedIn, articleController.getEditArticle);
+router.get("/edit/:slug", isLoggedIn, isArticleAuthor, articleController.getEditArticle);
 
 router.get("/:slug", articleController.getArticle);
 
@@ -51,11 +51,11 @@ router.post(
     //   .isLength({ min: 3 })
     //   .trim(),
   ],
-  isLoggedIn, 
+  isLoggedIn, isArticleAuthor,
   articleController.postEditArticle
 );
 router.post("/search", articleController.searchArticle);
 
-router.delete("/:slug", isLoggedIn, articleController.deleteArticle);
+router.delete("/:slug", isLoggedIn, isArticleAuthor, articleController.deleteArticle);
 
 module.exports = router;
