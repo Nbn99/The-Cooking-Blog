@@ -392,10 +392,18 @@ exports.getIngredientsPdf = async (req, res, next) => {
 
     pdfDoc.fontSize(26).text("Ingredients for " + article.title, {
       underline: true,
-    });
+    }).moveDown();
+    
 
     article.ingredients.forEach((ingredient) => {
-      pdfDoc.fontSize(14).text(ingredient);
+      pdfDoc.fontSize(16).list([ingredient], {
+        width:100,
+        align: 'left',
+        listType:'bullet',
+        bulletRadius: 3
+      })
+
+      // pdfDoc.fontSize(14).text(ingredient);
     });
 
     pdfDoc.end();
