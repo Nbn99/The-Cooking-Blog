@@ -342,7 +342,8 @@ exports.searchArticle = async (req, res, next) => {
     console.log(article)
     return res.render("articles/search", {
       title: "Cooking Blog - Search",
-       article
+       article,
+        searchTerm
        });
   } catch (err) {
     const error = new Error(err);
