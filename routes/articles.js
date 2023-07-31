@@ -17,7 +17,7 @@ router.get("/edit/:slug", isLoggedIn, isArticleAuthor, articleController.getEdit
 
 router.get("/:slug", articleController.getArticle);
 
-router.get("/ingredients/:articleId", articleController.getIngredientsPdf);
+router.get("/ingredients/:slug", articleController.getIngredientsPdf);
 
 router.post(
   "/new",

@@ -369,7 +369,8 @@ exports.searchRandom = async (req, res, next) => {
 
 exports.getIngredientsPdf = async (req, res, next) => {
   try {
-    const article = await Article.findOne({articleId: req.params.slug});
+    const article = await Article.findOne({slug: req.params.slug});
+    
     if (!article) {
       return next(new Error("No Article found."));
     }
