@@ -1,6 +1,8 @@
 
 # The Cooking Blog
 
+![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/2406403b-ff7b-481b-ac23-ebc732bb3d26)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -19,11 +21,29 @@ Welcome to The Cooking Blog, a delightful cooking blog that offers a wide array 
 ## Features
 
 - **User Authentication:** Users can create accounts, log in, and reset their password.
+![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/0020c624-7cbb-4c77-8f5e-4b5f957e5966)
+
 - **Article Management:** Authenticated users can add, edit, and delete their articles.
+  
+  Logged out:
+  ![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/bca78cc1-3cce-401c-b80e-02055ba527f8)
+
+  Logged in:
+  ![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/4a1fb173-9aa3-445e-95dc-5085a64bb6cd)
+
+
 - **Recipe's Categories:** Users can add new recipe categories to make content organization more efficient.
+  ![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/40c36c3b-1170-4338-8025-9afa2b4fcb8a)
+
 - **Saving Ingredients:** Users can download pdf with list of ingredients from recipe.
+  ![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/f72111cf-750f-4f90-9d33-579cd8bde552)
+
 - **Commenting System:** Users can leave comments below articles to engage in culinary discussions.
+  ![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/dd7bcdc7-c270-4955-8305-aa2ac9df4229)
+
 - **User-Friendly Search and Filtering:** Easily find recipes that suit your preferences with our user-friendly search and filtering options.
+  
+![image](https://github.com/Nbn99/The-Cooking-Blog/assets/109953057/d02652f2-ee88-4f34-b31b-bfca127a1e49)
 
 ## Technologies Used
 
