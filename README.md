@@ -16,7 +16,7 @@
 
 ## Introduction
 
-Welcome to The Cooking Blog, a delightful cooking blog that offers a wide array of delectable recipes and culinary inspirations! Developed using JavaScript, Node.js, EJS, and MongoDB, The Cooking Blog is the perfect destination for seasoned chefs and kitchen novices alike. Our platform allows users to create accounts, log in, and contribute their own articles, recipes' categories, and comments below articles. 
+The Cooking Blog, a delightful cooking blog that offers a wide array of delectable recipes and culinary inspirations! Developed using JavaScript, Node.js, EJS, and MongoDB, The Cooking Blog is the perfect destination for seasoned chefs and kitchen novices alike. Platform allows users to create accounts, log in, and contribute their own articles, recipes' categories, and comments below articles. 
 
 ## Features
 
