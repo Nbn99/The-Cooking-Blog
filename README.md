@@ -69,7 +69,7 @@ Before running The Cooking Blog on your local machine, ensure you have the follo
 1. Clone the The Cooking Blog repository from GitHub:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/Nbn99/The-Cooking-Blog/edit/main/README.md
 ```
 
 2. Navigate to the project directory:
